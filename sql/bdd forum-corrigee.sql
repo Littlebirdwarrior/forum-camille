@@ -33,7 +33,7 @@ INSERT INTO `category` (`id_category`, `name`) VALUES
 -- Listage de la structure de la table forum_cd. post
 CREATE TABLE IF NOT EXISTS `post` (
   `id_post` int(11) NOT NULL AUTO_INCREMENT,
-  `publish_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `publishDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `text` text,
   `user_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `post` (
 
 -- Listage des données de la table forum_cd.post : ~2 rows (environ)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` (`id_post`, `publish_date`, `text`, `user_id`, `topic_id`) VALUES
+INSERT INTO `post` (`id_post`, `publishDate`, `text`, `user_id`, `topic_id`) VALUES
 	(1, '2023-03-30 07:17:53', 'Salut tout le monde, je viens d\'adopter un chiot et j\'aimerais savoir comment l\'entraîner à être obéissant. Avez-vous des conseils à partager ?', 1, 1),
 	(2, '2023-03-30 07:19:14', 'Bienvenue ! J\'ai également un chien et j\'ai utilisé la méthode de la récompense pour l\'entraîner. En récompensant votre chien lorsqu\'il fait quelque chose de bien, vous renforcez son comportement positif', 2, 1);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
@@ -55,7 +55,7 @@ INSERT INTO `post` (`id_post`, `publish_date`, `text`, `user_id`, `topic_id`) VA
 CREATE TABLE IF NOT EXISTS `topic` (
   `id_topic` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
-  `publish_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `publishDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `lock` tinyint(1) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `topic` (
 
 -- Listage des données de la table forum_cd.topic : ~1 rows (environ)
 /*!40000 ALTER TABLE `topic` DISABLE KEYS */;
-INSERT INTO `topic` (`id_topic`, `title`, `publish_date`, `lock`, `user_id`, `category_id`) VALUES
+INSERT INTO `topic` (`id_topic`, `title`, `publishDate`, `lock`, `user_id`, `category_id`) VALUES
 	(1, 'Éducation d’un chiot', '2023-03-30 09:16:23', 0, 1, 1);
 /*!40000 ALTER TABLE `topic` ENABLE KEYS */;
 
@@ -76,16 +76,16 @@ INSERT INTO `topic` (`id_topic`, `title`, `publish_date`, `lock`, `user_id`, `ca
 CREATE TABLE IF NOT EXISTS `user` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(255) NOT NULL,
-  `user_name` varchar(255) NOT NULL,
+  `userName` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `first_login_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `firstLoginDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Listage des données de la table forum_cd.user : ~2 rows (environ)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id_user`, `role`, `user_name`, `email`, `password`, `first_login_date`) VALUES
+INSERT INTO `user` (`id_user`, `role`, `userName`, `email`, `password`, `firstLoginDate`) VALUES
 	(1, 'user', 'Yorkifan', 'yorkifan@yopmail.fr', 'Y0rksh1re15*', '2023-03-30 07:12:59'),
 	(2, 'user', 'Suzuba', 'suzuba@yopmail.fr', 'Shi8a999/', '2023-03-30 07:14:41');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
