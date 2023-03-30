@@ -1,4 +1,5 @@
 <?php
+    //permet de rediriger tous les controllers
     namespace App;
 
     abstract class AbstractController{
@@ -22,7 +23,7 @@
         public function restrictTo($role){
             
             if(!Session::getUser() || !Session::getUser()->hasRole($role)){
-                $this->redirectTo("security", "login");
+                $this->redirectTo("forum", "listPosts", $idTopic);
             }
             return;
         }
