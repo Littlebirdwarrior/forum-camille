@@ -1,8 +1,10 @@
 <?php
 
+//Hydratation (permet à l'instance de classe de remplir ses attribut par le construct)
+
 final class Topic extends Entity {
 
-    private $id_topic;
+    private $id;
     private $title;
     private $publishDate;
     private $lock;
@@ -11,7 +13,7 @@ final class Topic extends Entity {
 
     //cela permet d'attribuer 
     public function __construct() {
-        this->hydrate($data)
+        $this -> hydrate($data);
     }
 
 }
