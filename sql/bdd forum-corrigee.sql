@@ -20,11 +20,11 @@ USE `forum_cd`;
 -- Listage de la structure de la table forum_cd. category
 CREATE TABLE IF NOT EXISTS `category` (
   `id_category` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(25) NOT NULL,
   PRIMARY KEY (`id_category`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Listage des données de la table forum_cd.category : ~1 rows (environ)
+-- Listage des données de la table forum_cd.category : ~0 rows (environ)
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
 INSERT INTO `category` (`id_category`, `name`) VALUES
 	(1, 'Éducation d’un chiot');
@@ -54,7 +54,7 @@ INSERT INTO `post` (`id_post`, `publishDate`, `text`, `user_id`, `topic_id`) VAL
 -- Listage de la structure de la table forum_cd. topic
 CREATE TABLE IF NOT EXISTS `topic` (
   `id_topic` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
+  `title` varchar(70) NOT NULL,
   `publishDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `lock` tinyint(1) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `topic` (
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Listage des données de la table forum_cd.topic : ~1 rows (environ)
+-- Listage des données de la table forum_cd.topic : ~0 rows (environ)
 /*!40000 ALTER TABLE `topic` DISABLE KEYS */;
 INSERT INTO `topic` (`id_topic`, `title`, `publishDate`, `lock`, `user_id`, `category_id`) VALUES
 	(1, 'Éducation d’un chiot', '2023-03-30 09:16:23', 0, 1, 1);
@@ -75,9 +75,9 @@ INSERT INTO `topic` (`id_topic`, `title`, `publishDate`, `lock`, `user_id`, `cat
 -- Listage de la structure de la table forum_cd. user
 CREATE TABLE IF NOT EXISTS `user` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
-  `role` varchar(255) NOT NULL,
-  `userName` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `role` varchar(15) NOT NULL,
+  `userName` varchar(15) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `firstLoginDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`)
