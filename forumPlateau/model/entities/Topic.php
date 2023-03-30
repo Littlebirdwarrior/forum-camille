@@ -1,6 +1,8 @@
 <?php
 
+
 //Hydratation (permet à l'instance de classe de remplir ses attribut par le construct)
+//class Entity non crée
 
 final class Topic extends Entity {
 

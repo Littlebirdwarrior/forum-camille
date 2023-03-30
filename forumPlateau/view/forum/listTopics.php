@@ -1,7 +1,7 @@
 //comment récupérer les données envoyées par le controller
 <?php
 // comment les données envoyées par le controller
-$topics = $result["data"]['topics'];
+$topics = $result["data"]['topic'];
     
 ?>
 

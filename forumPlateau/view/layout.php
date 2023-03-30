@@ -18,7 +18,6 @@
             <h3 class="message" style="color: green"><?= App\Session::getFlash("success") ?></h3>
             <header>
                 <nav>
-                <a href="index.php?ctrl=forum&action=listTopics">List Topic</a>
                     <div id="nav-left">
                         <a href="/">Accueil</a>
                         <?php

@@ -7,6 +7,8 @@
     <span>&nbsp;-&nbsp;</span>
     <a href="/security/register.html">S'inscrire</a>
     <span>&nbsp;-&nbsp;</span>
+    <a href="index.php?ctrl=forum&action=listTopics">List Topic</a>
+
 </p>
 
 <!-- factorisation rends cette page très simple---->

@@ -19,7 +19,7 @@
             return [
                 "view" => VIEW_DIR."forum/listTopics.php",
                 "data" => [
-                    "topics" => $topicManager->findAll(["creationdate", "DESC"])
+                    "topic" => $topicManager->findAll(["publishDate", "DESC"])
                 ]
             ];
         
