@@ -20,7 +20,7 @@
                 "";
 
             $sql = "SELECT *
-                    FROM ".$this->tableName." a
+                    FROM  " . $this->tableName." a
                     ".$orderQuery;
 
             return $this->getMultipleResults(
