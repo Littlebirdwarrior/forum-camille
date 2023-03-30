@@ -2,7 +2,7 @@
 	namespace App;
 	
 	class Autoloader{
-
+		//charge toutes les classes, joue le role de router
 		public static function register(){
 			spl_autoload_register(array(__CLASS__, 'autoload'));
 		}

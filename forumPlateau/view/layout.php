@@ -18,13 +18,13 @@
             <h3 class="message" style="color: green"><?= App\Session::getFlash("success") ?></h3>
             <header>
                 <nav>
+                <a href="index.php?ctrl=forum&action=listTopics">List Topic</a>
                     <div id="nav-left">
                         <a href="/">Accueil</a>
                         <?php
                         if(App\Session::isAdmin()){
                             ?>
                             <a href="index.php?ctrl=home&action=users">Voir la liste des gens</a>
-                          
                             <?php
                         }
                         ?>
@@ -53,7 +53,7 @@
             </header>
             
             <main id="forum">
-                <?= $page ?>
+                <?= $page ?> <!--ici, contient tous ce qui est envoyé lors de la temporisation de sortie-->
             </main>
         </div>
         <footer>
@@ -111,4 +111,8 @@
         })*/
     </script>
 </body>
+
+<!-------
+Commentaire HTML qui sera appelée dans toute les vues, mais ce n'est pas le home (le home est vraiment la page d'accueil)
+-------->
 </html>

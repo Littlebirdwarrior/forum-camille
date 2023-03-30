@@ -1,20 +1,20 @@
 <?php
-
+    //ici, on place le controller au bon endroit, dans le namespace Controller
     namespace Controller;
 
     use App\Session;
-    use App\AbstractController;
-    use App\ControllerInterface;
+    use App\AbstractController; //indispensable, creer index et redirection
+    use App\ControllerInterface; //
     use Model\Managers\UserManager;
     use Model\Managers\TopicManager;
     use Model\Managers\PostManager;
     
     class HomeController extends AbstractController implements ControllerInterface{
 
-        //affichage index
+        //affichage index: redirige vers la view (ControllerInterface)
         public function index(){
             
-            
+                //renvoie la home dans la view sous forme d'un T.A avec les données
                 return [
                     "view" => VIEW_DIR."home.php"
                 ];

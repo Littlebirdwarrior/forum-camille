@@ -6,4 +6,7 @@
     <a href="/security/login.html">Se connecter</a>
     <span>&nbsp;-&nbsp;</span>
     <a href="/security/register.html">S'inscrire</a>
+    <span>&nbsp;-&nbsp;</span>
 </p>
+
+<!-- factorisation rends cette page très simple---->

@@ -1,4 +1,6 @@
 <?php
+/**Le DAO est une classe qui permet à chaque appel de fonction de se connecter à la base de donnée */
+
     namespace App;
     
     /**
