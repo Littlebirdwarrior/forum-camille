@@ -3,6 +3,8 @@
     namespace Controller;
 
     use App\Session;
+    // use App\Entity;
+    use App\Manager;
     use App\AbstractController;
     use App\ControllerInterface;
     use Model\Managers\TopicManager;
@@ -11,15 +13,14 @@
     class ForumController extends AbstractController implements ControllerInterface{
 
         public function index(){
-          
-            //Il faudra aussi comprendre que la méthode "findAll" est une méthode générique 
-            //qui provient de l'AbstractController (dont hérite chaque controller de l'application)
-           $topicManager = new TopicManager();
+            /*Il faudra aussi comprendre que la méthode "findAll" est une méthode générique 
+            //qui provient de l'AbstractController (dont hérite chaque controller de l'application)*/
+            $topicManager = new TopicManager();
            //ici, controller vers la view méthode listTopic
             return [
                 "view" => VIEW_DIR."forum/listTopics.php",
                 "data" => [
-                    "topic" => $topicManager->findAll(["publishDate", "DESC"])
+                    "topics" => $topicManager->findAll(["publishDate", "DESC"])
                 ]
             ];
         
