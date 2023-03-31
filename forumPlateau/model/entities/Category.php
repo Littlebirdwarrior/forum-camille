@@ -1,5 +1,8 @@
 <?php
-//Hydratation (permet à l'instance de classe de remplir ses attribut par le construct)
+
+namespace Model\Entities;
+
+use App\Entity;
 
 final class Category extends Entity {
 

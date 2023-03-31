@@ -1,7 +1,8 @@
 <?php
 
+namespace Model\Entities;
 
-//Hydratation (permet à l'instance de classe de remplir ses attribut par le construct)
+use App\Entity;
 
 final class Post extends Entity {
 

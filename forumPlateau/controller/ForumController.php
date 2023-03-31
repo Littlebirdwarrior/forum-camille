@@ -17,7 +17,7 @@
             $topicManager = new TopicManager();
            //ici, controller vers la view méthode listTopic
             return [
-                "view" => VIEW_DIR."forum/listTopics.php",
+                "view" => VIEW_DIR."forum/listTopics.php",//ici remplace require
                 "data" => [
                     "topics" => $topicManager->findAll(["publishDate", "DESC"])
                 ]
@@ -33,7 +33,7 @@
             return [
               "view" => VIEW_DIR."forum/listCategories.php",  
               "data" => [
-                "categories" => $categoryManager->findAll(["categoryName", "ASC"])
+                "categories" => $categoryManager->findAll(["name", "ASC"])
               ]
             ];
         }
