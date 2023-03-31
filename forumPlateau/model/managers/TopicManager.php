@@ -4,6 +4,7 @@
     use App\Manager;
     //dans App/DAO est enregister la connextion à PDO (connexion à la BBD, remplace le lien à PDO)
     use App\DAO;
+
     //topic manager extends les methodes publique de la classe Manager 
     class TopicManager extends Manager{
 
