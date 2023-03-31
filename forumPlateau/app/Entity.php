@@ -1,6 +1,7 @@
 <?php
-    namespace App;
 
+    namespace App;
+    //entités : classe en POO qui représente les tables de la BDD. Dans cet exercice, contraitement à cinema, on manipule des collections d'objets
     abstract class Entity{
 
         protected function hydrate($data){

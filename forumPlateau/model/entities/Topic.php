@@ -4,8 +4,9 @@
 //Hydratation (permet à l'instance de classe de remplir ses attribut par le construct)
 //class Entity non crée
 use App\Entity;
-final class Topic extends Entity {
 
+final class Topic extends Entity {
+    //je definis mes identifiants 
     private $id;
     private $title;
     private $publishDate;

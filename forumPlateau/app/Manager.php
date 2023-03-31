@@ -1,5 +1,7 @@
 <?php
     namespace App;
+    //Manager : classe qui contiennent les méthodes liée aux requete SQL
+    //Manager.php permet de factoriser toutes les requete sql de la bdd (les précisions sont apportés dans le dir manager)
 
     abstract class Manager{
 
