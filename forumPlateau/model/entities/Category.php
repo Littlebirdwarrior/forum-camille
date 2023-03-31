@@ -10,7 +10,7 @@ final class Category extends Entity {
     private $id;
     private $name;
 
-    public function __construct() {
+    public function __construct($data) {
         $this -> hydrate($data);
     }
 

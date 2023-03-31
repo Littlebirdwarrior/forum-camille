@@ -12,7 +12,7 @@ final class Post extends Entity {
     private $user;
     private $topic;
 
-    public function __construct() {
+    public function __construct($data) {
         $this -> hydrate($data);
     }
 

@@ -8,6 +8,6 @@ $categories = $result["data"]['categories'];
 
 <?php
 //génére topics pour chaque topic
-foreach($categories as $categories) {
-    echo $categorie;
+foreach($categories as $categorie) {
+    echo $categorie->getName();
 }
