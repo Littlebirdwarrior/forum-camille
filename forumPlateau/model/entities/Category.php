@@ -2,6 +2,7 @@
 
 namespace Model\Entities;
 
+use Controller\ForumController;
 use App\Entity;
 
 final class Category extends Entity {
