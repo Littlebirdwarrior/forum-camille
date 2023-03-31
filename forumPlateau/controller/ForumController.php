@@ -8,6 +8,7 @@
     use App\AbstractController;
     use App\ControllerInterface;
     use Model\Managers\TopicManager;
+    use Model\Managers\CategoryManager;
     use Model\Managers\PostManager;
     
     class ForumController extends AbstractController implements ControllerInterface{

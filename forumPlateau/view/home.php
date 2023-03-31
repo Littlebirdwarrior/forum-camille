@@ -8,6 +8,8 @@
     <a href="/security/register.html">S'inscrire</a>
     <span>&nbsp;-&nbsp;</span>
     <a href="index.php?ctrl=forum&action=listTopics">List Topic</a>
+    <span>&nbsp;-&nbsp;</span>
+    <a href="index.php?ctrl=forum&action=listCategories">List Categories</a>
 
 </p>
 
