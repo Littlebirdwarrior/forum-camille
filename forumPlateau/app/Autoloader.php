@@ -1,5 +1,6 @@
 <?php
 	namespace App;
+	//permet de charger toutes les classes
 	
 	class Autoloader{
 		//charge toutes les classes, joue le role de router

@@ -18,6 +18,7 @@
            //ici, controller vers la view méthode listTopic
             return [
                 "view" => VIEW_DIR."forum/listTopics.php",//ici remplace require
+                //tableau data qui vas chercher topics
                 "data" => [
                     "topics" => $topicManager->findAll(["publishDate", "DESC"])
                 ]

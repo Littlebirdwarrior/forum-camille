@@ -6,7 +6,7 @@
     abstract class Manager{
 
         protected function connect(){
-            DAO::connect();
+            DAO::connect(); //ici, remplace connexion a PDO
         }
 
         /**
