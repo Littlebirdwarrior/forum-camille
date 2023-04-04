@@ -14,8 +14,7 @@
     class ForumController extends AbstractController implements ControllerInterface{
 
         public function index(){
-            
-
+            //sur l'acceuil, on affiche tous les topics
             $topicManager = new TopicManager();
             // var_dump($topicManager->findAll(["publishDate", "DESC"])->current());die;
            //ici, controller vers la view méthode listTopic
@@ -28,7 +27,6 @@
             ];
         
         }
-
 
 
         public function listCategories(){

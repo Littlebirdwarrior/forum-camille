@@ -33,7 +33,7 @@ final class User extends Entity {
     }
 
     public function setUserName($userName) {
-        $this -> $userName = $userName;
+        $this -> userName = $userName;
     }
 
     //*email

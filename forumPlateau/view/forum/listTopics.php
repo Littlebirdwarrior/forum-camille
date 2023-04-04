@@ -4,13 +4,14 @@ $topics = $result["data"]['topics'];
 
 ?>
 
-<h1>Liste des topics</h1>
+<h1>Tous les topics</h1>
 
 <div>
     <table>
         <thead>
             <th>Catégorie</th>
             <th>Titre</th>
+            <th>Auteur</th>
             <th>Date</th>
         </thead>
         <tbody>
@@ -18,13 +19,19 @@ $topics = $result["data"]['topics'];
         <?php
         //génére pour chaque topic
         foreach($topics as $topic) {
-            //je recupère l'id de ma catégorie
-            $categoryId = $topic ->getCategory();?>
-            <td><?=$category = $categoryId ->getName();?></td>
+            //je recupère l'objet catégorie
+            $category = $topic ->getCategory();
+            //je recupère l'object user (auteur)
+            $user = $topic ->getUser();
+            ?>
+            <!-----categorie----->
+            <td><?= $category->getName();?></td>
             <!-----titre----->
-            <td><?=$title = $topic->getTitle();?></td>
+            <td><?=$topic->getTitle();?></td>
+            <!-----Auteur----->
+            <td><?= $user->getUserName();?></td>
             <!-----date----->
-            <td><?=$date = $topic -> getPublishDate();?></td>
+            <td><?= $topic->getPublishDate();?></td>
             
         <?php } ?>
 
