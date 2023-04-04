@@ -1,7 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,500;0,700;1,300;1,500;1,700&display=swap');
+
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
 h1 {
     color: #2b4ca7;
     margin: 2rem 0 0.2rem;
 }
+
+/*Les catégories*/
+
+.boxes-content{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.box-categories {
+  width: 200px;
+  height: 200px;
+  margin: 1rem;
+  padding: 1rem;
+  text-align: center;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.box-categories:nth-child(odd) {
+  background-color: #0a5796;
+}
+
+.box-categories:nth-child(even) {
+  background-color: #061a52;
+}
+
+/*Les tables*/
 
 table {
     font-family: Arial, Helvetica, sans-serif;

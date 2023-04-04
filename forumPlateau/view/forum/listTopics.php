@@ -1,5 +1,5 @@
 <?php
-var_dump($result["data"]['topics']);
+//test : var_dump($result["data"]['topics']);
 $topics = $result["data"]['topics'];
 
 ?>
