@@ -14,7 +14,7 @@
             parent::connect();
         }
 
-        public function fetchPostsbyTopic($id)
+        public function fetchPostsByTopic($id)
         {
             $sql = "SELECT *
                 FROM ".$this->tableName." p

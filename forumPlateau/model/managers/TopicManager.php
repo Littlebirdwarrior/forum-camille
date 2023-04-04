@@ -16,4 +16,19 @@
             parent::connect();
         }
 
+        public function fetchTopicByCat($id)
+        {
+            $sql= "SELECT * 
+                        FROM topic t
+                    INNER JOIN category c ON t.category_id= c.id_category
+                    WHERE t.category_id = :id
+                    ORDER BY t.title DESC";
+
+             return $this->getMultipleResults(
+                    DAO::select($sql, ['id' => $id]),
+                    $this->className
+            );
+              
+        }
+
     }

@@ -125,4 +125,6 @@ th {
   flex-wrap: wrap;
   justify-content: space-between;
   opacity: .5;
+  padding-bottom: 0.2rem;
+  border-bottom : 1px solid #cdcfe6;
 }

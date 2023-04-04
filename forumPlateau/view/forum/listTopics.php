@@ -30,9 +30,9 @@ $topics = $result["data"]['topics'];
             <a href="index.php?ctrl=forum&action=listCategories">
                 <tr>
                     <!-----categorie----->
-                    <td><?= $category->getName();?></td>
+                    <td><a href="index.php?ctrl=forum&action=listTopicsByCat&id=<?=$topic->getId()?>"><?= $category->getName();?></a></td>
                     <!-----titre----->
-                    <td><a href="index.php?ctrl=forum&action=listPostsbyTopic&id=<?=$topic->getId()?>"><?=$topic->getTitle();?></a></td>
+                    <td><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?=$topic->getId()?>"><?=$topic->getTitle();?></a></td>
                     <!-----Auteur----->
                     <td><?= $user->getUserName();?></td>
                     <!-----date----->

@@ -41,14 +41,27 @@
         }
 
         //lister les posts d'un topic
-        public function listPostsbyTopic($id){
+        public function listPostsByTopic($id){
             
             $postManager = new PostManager();
 
             return [
                 "view" => VIEW_DIR."forum/listPostsbyTopic.php",
                 "data" => [
-                    "posts" => $postManager->fetchPostsbyTopic($id)
+                    "posts" => $postManager->fetchPostsByTopic($id)
+                ]  
+            ];
+        }
+
+        //list les topics par category
+        public function listTopicsByCat($id){
+            
+            $topicManager = new TopicManager();
+
+            return [
+                "view" => VIEW_DIR."forum/listTopicByCat.php",
+                "data" => [
+                    "topics" => $topicManager->fetchTopicByCat($id)
                 ]  
             ];
         }
