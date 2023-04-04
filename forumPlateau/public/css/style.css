@@ -1,8 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,500;0,700;1,300;1,500;1,700&display=swap');
 
+/*Reset*/
+
+ul, ol, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
 * {
   font-family: 'Open Sans', sans-serif;
 }
+
 
 /*header layout*/
 
@@ -39,6 +49,7 @@ header nav div:last-child {
 h1 {
     color: #2b4ca7;
     margin: 2rem 0 0.2rem;
+    text-align: center;
 }
 
 /*Les catégories*/
@@ -59,7 +70,7 @@ h1 {
 }
 
 .box-categories:nth-child(odd) {
-  background-color: #0a5796;
+  background-color: #082e97;
 }
 
 .box-categories:nth-child(even) {
@@ -72,18 +83,18 @@ table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
-    margin-top: 2rem;
+    margin: 2rem auto 0;
   }
   
 td, th {
-    border: 1px solid #ddd;
+    border: 1px solid #c9c9cf;
     padding: 8px;
     white-space: pre-wrap;
   }
   
-tr:nth-child(even){background-color: #f2f2f2;}
+tr:nth-child(even){background-color: #f4f4f8;}
   
-tr:hover {background-color: #bdc2fa;}
+tr:hover {background-color: #cfd9f3;}
   
 th {
     padding-top: 12px;
@@ -92,3 +103,26 @@ th {
     background-color: #2b4ca7;
     color: white;
   }
+
+/*posts*/
+
+.box-post{
+  max-width: 60%;
+  margin: 1rem auto 2rem;
+  padding: 1rem 2rem 0.2rem;
+  background-color: #f4f4f8;
+  border: 1px solid #e9eaf8;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.box-post ul {
+  max-width: 98%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  opacity: .5;
+}
