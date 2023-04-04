@@ -15,7 +15,9 @@
 
         public function index(){
             
+
             $topicManager = new TopicManager();
+            // var_dump($topicManager->findAll(["publishDate", "DESC"])->current());die;
            //ici, controller vers la view méthode listTopic
             return [
                 "view" => VIEW_DIR."forum/listTopics.php",//ici remplace require
@@ -26,6 +28,7 @@
             ];
         
         }
+
 
 
         public function listCategories(){
@@ -40,6 +43,4 @@
             ];
         }
 
-        
-
-    }
+}

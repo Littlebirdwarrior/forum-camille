@@ -3,7 +3,6 @@
     
     use App\Manager;
     use App\DAO;
-    use Model\Managers\PostManager;
 
     class PostManager extends Manager{
 

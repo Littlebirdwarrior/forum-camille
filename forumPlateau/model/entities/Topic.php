@@ -21,6 +21,7 @@ final class Topic extends Entity {
     }
 
 
+
     /**
      * Get the value of id
      */ 
