@@ -4,6 +4,38 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+/*header layout*/
+
+header, footer {
+  background-color: #cfd9f3;
+  padding: 1rem 0;
+}
+
+header{
+  border-bottom: 1px solid #061a52;
+}
+
+footer{
+  margin-top: 2rem;
+  padding: 1rem;
+  border-top: 1px solid #061a52;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+
+}
+
+header nav div:last-child {
+  width: 20%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+
 h1 {
     color: #2b4ca7;
     margin: 2rem 0 0.2rem;
