@@ -9,13 +9,16 @@ $topics = $result["data"]['topics'];
 <div>
     <table>
         <thead>
-            <th>Catégorie</th>
-            <th>Titre</th>
-            <th>Auteur</th>
-            <th>Date</th>
+            <tr>
+                <th>Catégorie</th>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Date</th>
+            </tr>
         </thead>
         <tbody>
-
+        
+        
         <?php
         //génére pour chaque topic
         foreach($topics as $topic) {
@@ -24,20 +27,22 @@ $topics = $result["data"]['topics'];
             //je recupère l'object user (auteur)
             $user = $topic ->getUser();
             ?>
-            <!-----categorie----->
-            <td><?= $category->getName();?></td>
-            <!-----titre----->
-            <td><?=$topic->getTitle();?></td>
-            <!-----Auteur----->
-            <td><?= $user->getUserName();?></td>
-            <!-----date----->
-            <td><?= $topic->getPublishDate();?></td>
-            
+            <a href="index.php?ctrl=forum&action=listCategories">
+                <tr>
+                    <!-----categorie----->
+                    <td><?= $category->getName();?></td>
+                    <!-----titre----->
+                    <td><a href="index.php?ctrl=forum&action=listPostsbyTopic&id=<?=$topic->getId()?>"><?=$topic->getTitle();?></a></td>
+                    <!-----Auteur----->
+                    <td><?= $user->getUserName();?></td>
+                    <!-----date----->
+                    <td><?= $topic->getPublishDate();?></td>
+                </tr>
+            </a>
         <?php } ?>
-
+        
         </tbody>
-</table>
-
+    </table>
 </div>
 
   

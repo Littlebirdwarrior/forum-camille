@@ -10,7 +10,6 @@
     <a href="index.php?ctrl=forum&action=listTopics">List Topic</a>
     <span>&nbsp;-&nbsp;</span>
     <a href="index.php?ctrl=forum&action=listCategories">List Categories</a>
-
 </p>
 
 <!-- factorisation rends cette page très simple---->
