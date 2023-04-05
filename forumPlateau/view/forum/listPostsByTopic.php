@@ -31,5 +31,5 @@ foreach( $posts as $post ) {
 <?php } ?>
 
 <div>
-    <a class="button" href="index.php?ctrl=forum&action=addPost&<?= $topicId?>">Ajouter un post</a>
+    <a class="button" href="index.php?ctrl=forum&action=addPost&<?= $topic->getId()?>">Ajouter un post</a>
 </div>

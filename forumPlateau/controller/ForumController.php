@@ -70,14 +70,17 @@
 
         public function addPost($id){
 
-            //je cree le nouveau controller
+            //ce cree un nouveau manager topic
+            $topicManager = new TopicManager();
+            $topic = $topicManager->findOneById($id);
+
+            //je cree le nouveau manager post
             $postManager = new PostManager();
 
             //seulement si l'user est connecté
             // if($_SESSION['user']){
                 //Je recupère mon id user et mon id cat
                 // $user_id = $_SESSION['user']->getId();
-                $topic_id = $_GET['id'];
                 $user_id = 21;
 
                 if(isset($_POST['submit'])){
@@ -96,7 +99,13 @@
                         }
                     }
                 }
-
+                      
+            return [
+                "view" => VIEW_DIR."forum/addPost.php",
+                "data" => [
+                    "topic" => $topic
+                ]  
+            ];
                 
             // }
 
