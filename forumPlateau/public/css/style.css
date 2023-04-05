@@ -14,22 +14,30 @@ ul, ol, li {
 }
 
 
-/*header layout*/
+/*générals*/
 
 header, footer {
   background-color: #cfd9f3;
-  padding: 1rem 0;
+  padding: 1rem;
 }
 
 header{
   border-bottom: 1px solid #061a52;
 }
 
+main, 
+header>nav, 
+footer>p {
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
 footer{
   margin-top: 2rem;
-  padding: 1rem;
   border-top: 1px solid #061a52;
 }
+
+/*header layout*/
 
 header nav {
   display: flex;
@@ -57,6 +65,7 @@ h1 {
 .boxes-content{
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .box-categories {
@@ -69,11 +78,11 @@ h1 {
   font-size: 1.2rem;
 }
 
-.box-categories:nth-child(odd) {
-  background-color: #082e97;
+.box-categories:nth-child(even) {
+  background-color: #1143cf;
 }
 
-.box-categories:nth-child(even) {
+.box-categories:nth-child(odd) {
   background-color: #061a52;
 }
 
@@ -107,7 +116,7 @@ th {
 /*posts*/
 
 .box-post{
-  max-width: 60%;
+  max-width: 80%;
   margin: 1rem auto 2rem;
   padding: 1rem 2rem 0.2rem;
   background-color: #f4f4f8;
@@ -127,4 +136,39 @@ th {
   opacity: .5;
   padding-bottom: 0.2rem;
   border-bottom : 1px solid #cdcfe6;
+}
+
+/*bouton et lien*/
+a:hover, a:focus {
+  color: #f77d12;
+}
+
+a {
+  color: #2151d5;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+.button, input[type="submit"], button {
+  display: inline-block;
+  height: 30px;
+  text-align: center;
+  padding: 0.4rem 1.4rem 0 1.3rem;
+  text-decoration: none;
+  background-color:#2151d5;
+  color: #fff;
+  border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  -ms-border-radius: 40px;
+  -o-border-radius: 40px;
+}
+
+.button:hover, 
+input[type="submit"]:hover, 
+button:hover {
+  background : #f77d12;
+  color: #fff;
 }

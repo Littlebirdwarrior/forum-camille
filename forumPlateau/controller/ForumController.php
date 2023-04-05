@@ -66,4 +66,18 @@
             ];
         }
 
+        //addPost : ajouter un post depuis un Topic préétablis
+
+        public function addPost($id){
+
+            $postManager = new PostManager();
+
+            return [
+                "view" => VIEW_DIR."forum/addPost.php",
+                "data" => [
+                    "posts" => $postManager->fetchPostsByTopic($id)
+                ]  
+            ];
+    }
+
 }

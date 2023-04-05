@@ -29,3 +29,7 @@ foreach( $posts as $post ) {
         </div>
     </div>
 <?php } ?>
+
+<div>
+    <a class="button" href="index.php?ctrl=forum&action=addPost">Ajouter un post</a>
+</div>
