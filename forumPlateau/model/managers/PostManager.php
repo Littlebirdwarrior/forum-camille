@@ -26,15 +26,4 @@
                 $this->className
             );
         }
-
-        public function insertPost(){
-            $sql = "INSERT INTO ".$this->tableName." 
-            Values(
-                :title,
-                :content,
-                :publishDate,
-                :topic_i
-            )";
-        }
-
     }

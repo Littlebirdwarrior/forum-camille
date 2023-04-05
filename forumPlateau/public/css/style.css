@@ -151,7 +151,7 @@ a:visited {
   text-decoration: none;
 }
 
-.button, input[type="submit"], button {
+.button {
   display: inline-block;
   height: 30px;
   text-align: center;
@@ -166,9 +166,7 @@ a:visited {
   -o-border-radius: 40px;
 }
 
-.button:hover, 
-input[type="submit"]:hover, 
-button:hover {
+.button:hover {
   background : #f77d12;
   color: #fff;
 }

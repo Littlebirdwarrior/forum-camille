@@ -70,14 +70,38 @@
 
         public function addPost($id){
 
+            //je cree le nouveau controller
             $postManager = new PostManager();
 
-            return [
-                "view" => VIEW_DIR."forum/addPost.php",
-                "data" => [
-                    "posts" => $postManager->fetchPostsByTopic($id)
-                ]  
-            ];
+            //seulement si l'user est connecté
+            // if($_SESSION['user']){
+                //Je recupère mon id user et mon id cat
+                // $user_id = $_SESSION['user']->getId();
+                $topic_id = $_GET['id'];
+                $user_id = 21;
+
+                if(isset($_POST['submit'])){
+                    if(isset($_POST["textPost"]) &&(!empty($_POST["textPost"]))){
+                        //je vide mon post ce charactères dangereux
+                        $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                        //si le filtre passe
+                        if($text){
+                            //j'insére mes données dans le sql
+                            $postManager->add(["text"=>$text,"topic_id"=>$topic_id,"user_id"=>$user_id]);
+                            Session::addFlash("Success", "Post added successfully");
+                            $this->redirectTo("forum", "listPosts", $id);
+                        } else {
+                            Session::addFlash("Error", "Blank input");
+                            $this->redirectTo("forum", "listPosts", $id);
+                        }
+                    }
+                }
+
+                
+            // }
+
+            
+            
     }
 
 }
