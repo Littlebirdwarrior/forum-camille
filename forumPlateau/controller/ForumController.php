@@ -59,9 +59,9 @@
             $topicManager = new TopicManager();
 
             return [
-                "view" => VIEW_DIR."forum/listTopicByCat.php",
+                "view" => VIEW_DIR."forum/listTopicsByCat.php",
                 "data" => [
-                    "topics" => $topicManager->fetchTopicByCat($id)
+                    "topics" => $topicManager->fetchTopicsByCat($id)
                 ]  
             ];
         }

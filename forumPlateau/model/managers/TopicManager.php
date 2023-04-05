@@ -16,7 +16,7 @@
             parent::connect();
         }
 
-        public function fetchTopicByCat($id)
+        public function fetchTopicsByCat($id)
         {
             $sql= "SELECT * 
                         FROM topic t

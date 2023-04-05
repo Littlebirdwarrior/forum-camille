@@ -1,5 +1,5 @@
 <?php
-var_dump($topic = $result["data"]["topic"]->current()); die;
+var_dump($topic = $result["data"]["topics"]->current()); die;
 
 
 ?>
