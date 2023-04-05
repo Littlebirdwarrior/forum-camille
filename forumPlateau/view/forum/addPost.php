@@ -1,11 +1,13 @@
 
 <?php
-var_dump($_SESSION);
+$post = $result['data']['post'];
+
+var_dump($_POST);
 ?>
 <!-- ... -->
 <h2>Ajouter un post sur le sujet " "</h2>
 
-<form action="index.php?action=forum&addPost&id=21" method="post"><!----ici, id existe pas encore--->
+<form action="index.php?ctrl=forum&action=addPost&21>" method="post" required><!----ici, id existe pas encore--->
    <div>
   	<label for="user">Utilisateur "" </label><br />
   	<label for="topic">Topic ""</label><br />

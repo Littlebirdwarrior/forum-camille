@@ -90,7 +90,7 @@
                         //si le filtre passe
                         if($text){
                             //j'insére mes données dans le sql
-                            $postManager->add(["text"=>$text,"topic_id"=>$topic_id,"user_id"=>$user_id]);
+                            $postManager->add(["text"=>$text,"topic_id"=>$topic,"user_id"=>$user_id]);
                             Session::addFlash("Success", "Post added successfully");
                             $this->redirectTo("forum", "listPosts", $id);
                         } else {
@@ -99,12 +99,12 @@
                         }
                     }
                 }
-                      
+
             return [
                 "view" => VIEW_DIR."forum/addPost.php",
                 "data" => [
                     "topic" => $topic
-                ]  
+                ]
             ];
                 
             // }
