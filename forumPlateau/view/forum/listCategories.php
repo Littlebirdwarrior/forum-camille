@@ -11,8 +11,10 @@ $categories = $result["data"]['categories'];
     <?php
     //génére topics pour chaque topic
     foreach($categories as $categorie) { ?>
-        <div class="box-categories">
-        <?= $categorie->getName();?>
-        </div>
+        <a href="index.php?ctrl=forum&action=listTopicsByCat&id=<?= $categorie->getId();?>">
+            <div class="box-categories">
+                <?= $categorie->getName();?>
+            </div>
+        </a>    
     <?php } ?>
 </div> 

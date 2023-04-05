@@ -27,7 +27,6 @@ $topics = $result["data"]['topics'];
             //je recupère l'object user (auteur)
             $user = $topic ->getUser();
             ?>
-            <a href="index.php?ctrl=forum&action=listCategories">
                 <tr>
                     <!-----categorie----->
                     <td><a href="index.php?ctrl=forum&action=listTopicsByCat&id=<?=$topic->getId()?>"><?= $category->getName();?></a></td>
@@ -38,7 +37,6 @@ $topics = $result["data"]['topics'];
                     <!-----date----->
                     <td><?= $topic->getPublishDate();?></td>
                 </tr>
-            </a>
         <?php } ?>
         
         </tbody>
