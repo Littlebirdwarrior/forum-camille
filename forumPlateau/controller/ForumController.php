@@ -83,10 +83,10 @@ class ForumController extends AbstractController implements ControllerInterface
                     //j'insére mes données dans le sql
                     $postManager->add(["text" => $text, "topic_id" => $topic->getId(), "user_id" => $user_id]);
                     Session::addFlash("Success", "Post added successfully");
-                    $this->redirectTo("forum", "listPosts", $id);
+                    $this->redirectTo("forum", "listPostsByTopic", $id);
                 } else {
                     echo 'erreur';
-                    $this->redirectTo("forum", "listPosts", $id);
+                    $this->redirectTo("forum", "listPostsByTopic", $id);
                 }
             } else {
                 Session::addFlash("Error", "Blank input");
@@ -94,7 +94,7 @@ class ForumController extends AbstractController implements ControllerInterface
         }
 
         return [
-            "view" => VIEW_DIR . "forum/addPost.php",
+            "view" => VIEW_DIR . "forum/listPostsbyTopic.php",
             "data" => [
                 "topic" => $topic
             ]
