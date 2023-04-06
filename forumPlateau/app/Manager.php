@@ -49,6 +49,7 @@
         public function add($data){
             //$keys = ['username' , 'password', 'email']
             $keys = array_keys($data);
+            //implode, transforme array en string, stringify js
             //$values = ['Squalli', 'dfsyfshfbzeifbqefbq', 'sql@gmail.com']
             $values = array_values($data);
             //"username,password,email"

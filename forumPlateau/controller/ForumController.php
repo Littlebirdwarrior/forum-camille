@@ -94,6 +94,7 @@
                             Session::addFlash("Success", "Post added successfully");
                             $this->redirectTo("forum", "listPosts", $id);
                         } else {
+                            echo 'erreur';
                             Session::addFlash("Error", "Blank input");
                             $this->redirectTo("forum", "listPosts", $id);
                         }

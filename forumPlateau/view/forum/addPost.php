@@ -2,7 +2,7 @@
 <?php
 $post = $result['data']['topic'];
 
-var_dump($_POST);
+
 ?>
 <!-- ... -->
 <h2>Ajouter un post sur le sujet " "</h2>
