@@ -11,14 +11,21 @@
     
     class HomeController extends AbstractController implements ControllerInterface{
 
-        //affichage index: redirige vers la view (ControllerInterface)
+        //lister tous les topics dans l'index
         public function index(){
-            
-                //renvoie la home dans la view sous forme d'un T.A avec les données
-                return [
-                    "view" => VIEW_DIR."home.php"
-                ];
-            }
+            //sur l'acceuil, on affiche tous les topics
+            $topicManager = new TopicManager();
+            //var_dump($topicManager->findAll(["publishDate", "DESC"])->current());die;
+        //    //ici, controller vers la view méthode listTopic
+            return [
+                "view" => VIEW_DIR."home.php",//ici remplace require
+                //tableau data qui vas chercher topics
+                "data" => [
+                    "topics" => $topicManager->findAll(["publishDate", "DESC"])
+                ]
+            ];
+        
+        }
             
         
    
