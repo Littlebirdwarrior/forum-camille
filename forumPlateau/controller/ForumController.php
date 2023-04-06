@@ -55,8 +55,7 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
-    //addPost : ajouter un post depuis un Topic préétablis
-    //*! ne rentre pas dans ma fonction 
+    //addPost : ajouter un post depuis un Topic préétablis 
     public function addPost($id)
     {
 
@@ -71,7 +70,7 @@ class ForumController extends AbstractController implements ControllerInterface
         // if($_SESSION['user']){
         //Je recupère mon id user et mon id cat
         // $user_id = $_SESSION['user']->getId();
-        $user_id = 21;
+        $user_id = 21;//*!a modifier
 
         if (isset($_POST['submit'])) {
             //var_dump ici ne marche pas
@@ -100,4 +99,55 @@ class ForumController extends AbstractController implements ControllerInterface
             ]
         ];
     }
+
+    //addTopic : ajouter un topic et un post depuis une categorie préétablis
+    public function addTopic($id)
+    {
+
+        //ce cree un nouveau manager topic
+        $categoryManager = new CategoryManager();
+        $category = $categoryManager->findOneById($id);
+
+        //je cree le nouveau manager topic
+        $topicManager = new TopicManager();//*! comment récupérer l'id tout juste créer
+
+        //je cree le nouveau manager post
+        $postManager = new PostManager();
+
+        //seulement si l'user est connecté
+        // if($_SESSION['user']){
+        //Je recupère mon id user et mon id cat
+        // $user_id = $_SESSION['user']->getId();
+        $user_id = 21;//*!a modifier
+
+        if (isset($_POST['submit'])) {
+            //var_dump ici ne marche pas
+            if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) { //*!ici, il faut que le champs topic ne soit pas vide
+                //je vide mon post ce charactères dangereux
+                $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                //si le filtre passe
+                if ($text) {
+                    //j'insére mes données dans le sql
+                    $postManager->add(["text" => $text, "topic_id" => $topic->getId(), "user_id" => $user_id]);//*! ici l'id devra être le dernier créer
+                    Session::addFlash("Success", "Post added successfully");
+                    $this->redirectTo("forum", "listPostsByTopic", $id);
+                } else {
+                    echo 'erreur';
+                    $this->redirectTo("forum", "listPostsByTopic", $id);
+                }
+            } else {
+                Session::addFlash("Error", "Blank input");
+            }
+        }
+
+        return [
+            "view" => VIEW_DIR . "forum/listTopicByCat.php",//*! ici pas sûre que c'est bien la catégorie que l'on rajoute
+            "data" => [
+                "category" => $category
+            ]
+        ];
+    }
+
+
+//fermeture fonction
 }

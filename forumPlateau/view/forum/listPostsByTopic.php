@@ -33,14 +33,14 @@ foreach( $posts as $post ) {
 <!-- ... -->
 <h2>Ajouter un post</h2>
 
-<form action="index.php?ctrl=forum&action=addPost&id=<?=$topicId?>" method="post" required><!----ici, id existe pas encore--->
+<form action="index.php?ctrl=forum&action=addPost&id=<?=$topicId?>" method="post"><!----ici, id existe pas encore--->
    <div>
-      <label for="user">Utilisateur: <?=$user-> getUserName()?> </label><br />
-      <label for="topic">Sujet: <?=$topic->getTitle()?></label><br />
+      <label for="user">Utilisateur : <?=$user-> getUserName()?> </label><br />
+      <label for="topic">Sujet : <?=$topic-> getTitle()?></label>
    </div>
    <div>
       <label for="post">Votre post</label><br />
-      <textarea name="textPost"></textarea>
+      <textarea name="textPost" required></textarea>
    </div>
    <div>
       <input type="submit" value="OK" name="submit" />

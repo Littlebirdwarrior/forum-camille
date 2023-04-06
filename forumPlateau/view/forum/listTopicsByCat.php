@@ -42,3 +42,24 @@ $categoryId = $_GET['id'];
         </tbody>
     </table>
 </div>
+
+<!-- ... -->
+<h2>Ajouter un sujet</h2>
+
+<form action="index.php?ctrl=forum&action=addTopic&id=<?=$categoryId?>" method="post"><!----ici, id existe pas encore--->
+   <div>
+      <label for="user">Utilisateur: <?=$user-> getUserName()?> </label><br />
+      <label for="labelTopic"> Votre sujet : </label><br />
+      <input type="text" id="topic" name="topic" required
+       minlength="4" maxlength="8" size="10">
+   </div>
+   <div>
+      <label for="post">Le premier message</label><br />
+      <textarea name="textPost" required></textarea>
+   </div>
+   <div>
+      <input type="submit" value="OK" name="submit" />
+   </div>
+</form>
+<!-- ... -->
+
