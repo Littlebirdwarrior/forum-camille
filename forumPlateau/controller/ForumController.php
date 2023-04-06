@@ -67,7 +67,7 @@
         }
 
         //addPost : ajouter un post depuis un Topic préétablis
-
+        //*! ne rentre pas dans ma fonction 
         public function addPost($id){
 
             //ce cree un nouveau manager topic
@@ -84,6 +84,7 @@
                 $user_id = 21;
 
                 if(isset($_POST['submit'])){
+                    //var_dump ici ne marche pas
                     if(isset($_POST["textPost"]) &&(!empty($_POST["textPost"]))){
                         //je vide mon post ce charactères dangereux
                         $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
