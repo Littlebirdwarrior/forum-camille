@@ -43,10 +43,10 @@ $categoryId = $_GET['id'];
     </table>
 </div>
 
-<!-- ... -->
+
 <h2>Ajouter un sujet</h2>
 
-<form action="index.php?ctrl=forum&action=addTopic&id=<?=$categoryId?>" method="post"><!----ici, id existe pas encore--->
+<form action="index.php?ctrl=forum&action=addTopic&id=<?=$categoryId?>" method="post"><!----ici, id existe pas encore---->
    <div>
       <label for="user">Utilisateur: <?=$user-> getUserName()?> </label><br />
       <label for="labelTopic"> Votre sujet : </label><br />
@@ -60,6 +60,5 @@ $categoryId = $_GET['id'];
    <div>
       <input type="submit" value="OK" name="submit" />
    </div>
-</form>
-<!-- ... -->
+</form> 
 

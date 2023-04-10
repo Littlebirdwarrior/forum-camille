@@ -118,19 +118,22 @@ class ForumController extends AbstractController implements ControllerInterface
         // if($_SESSION['user']){
         //Je recupère mon id user et mon id cat
         // $user_id = $_SESSION['user']->getId();
-        $user_id = 21;//*!a modifier
+        $user_id = 21;//*!a modifier lors de la creation des connexions
 
         if (isset($_POST['submit'])) {
             //var_dump ici ne marche pas
             if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) { //*!ici, il faut que le champs topic ne soit pas vide
                 //je vide mon post ce charactères dangereux
-                $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 //si le filtre passe
                 if ($text) {
+                    //je cree une row dans topic
+                    $last_id = $topicManager ->add(["title"=> $title, "user_id" => $user_id, "categorie_id" => $category->getId()]);
                     //j'insére mes données dans le sql
-                    $postManager->add(["text" => $text, "topic_id" => $topic->getId(), "user_id" => $user_id]);//*! ici l'id devra être le dernier créer
+                    $postManager->add(["text" => $text, "topic_id" => $last_id, "user_id" => $user_id]);//*! ici l'id devra être le dernier créer
                     Session::addFlash("Success", "Post added successfully");
-                    $this->redirectTo("forum", "listPostsByTopic", $id);
+                    $this->redirectTo("forum", "listTopicByCat", $id);
                 } else {
                     echo 'erreur';
                     $this->redirectTo("forum", "listPostsByTopic", $id);
