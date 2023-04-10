@@ -82,10 +82,11 @@ class ForumController extends AbstractController implements ControllerInterface
                     //j'insére mes données dans le sql
                     $postManager->add(["text" => $text, "topic_id" => $topic->getId(), "user_id" => $user_id]);
                     Session::addFlash("Success", "Post added successfully");
+                    //je redirige ma page
                     $this->redirectTo("forum", "listPostsByTopic", $id);
                 } else {
-                    echo 'erreur';
                     $this->redirectTo("forum", "listPostsByTopic", $id);
+                    echo 'erreur';
                 }
             } else {
                 Session::addFlash("Error", "Blank input");
@@ -124,19 +125,21 @@ class ForumController extends AbstractController implements ControllerInterface
             //var_dump ici ne marche pas
             if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) { //*!ici, il faut que le champs topic ne soit pas vide
                 //je vide mon post ce charactères dangereux
-                $text = filter_input(INPUT_POST, "text", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $title = filter_input(INPUT_POST, "titleTopic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $category_id = $category->getId();
                 //si le filtre passe
                 if ($text) {
-                    //je cree une row dans topic
-                    $last_id = $topicManager ->add(["title"=> $title, "user_id" => $user_id, "categorie_id" => $category->getId()]);
-                    //j'insére mes données dans le sql
+                    //j'insère mes données dans la table topic
+                    $last_id = $topicManager->add(["title"=> $title, "user_id" => $user_id, "category_id" => $category_id]);
+                    //j'insére mes données dans la table post
                     $postManager->add(["text" => $text, "topic_id" => $last_id, "user_id" => $user_id]);//*! ici l'id devra être le dernier créer
                     Session::addFlash("Success", "Post added successfully");
+                    //je redirige ma page
                     $this->redirectTo("forum", "listTopicByCat", $id);
                 } else {
+                    $this->redirectTo("forum", "listTopicByCat", $id);
                     echo 'erreur';
-                    $this->redirectTo("forum", "listPostsByTopic", $id);
                 }
             } else {
                 Session::addFlash("Error", "Blank input");
