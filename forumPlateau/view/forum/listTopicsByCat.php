@@ -15,9 +15,11 @@ $categoryId = $_GET['id'];
         <thead>
 
            <tr>
-                <th>Titre</th>
-                <th>Auteur</th>
-                <th>Date</th>
+                <th>Statut</th>
+                <th>Sujet</th>
+                <th>Posts</th>
+                <th>Actions</th>
+                <th>Verouiller</th>
            </tr> 
         </thead>
         <tbody>
@@ -30,12 +32,36 @@ $categoryId = $_GET['id'];
             $user = $topic ->getUser();
             ?>
                 <tr>
-                    <!-----titre----->
-                    <td><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?=$topic->getId()?>"><?=$topic->getTitle();?></a></td>
-                    <!-----Auteur----->
-                    <td><?= $user->getUserName();?></td>
-                    <!-----date----->
-                    <td><?= $topic->getPublishDate();?></td>
+                    <!-----Statut----->
+                    <td>
+                        <p>
+                            <a href=""><i class="fa-solid fa-lock-open"></i></a>
+                            <a href=""><i class="fa-solid fa-lock"></i></a>
+                        </p>
+                    </td>
+                    
+                    <td>
+                        <!-----titre----->
+                        <h3><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?=$topic->getId()?>"><?=$topic->getTitle();?></a></h3>
+                        <p class="info-post">
+                            <!-----Auteur----->
+                            Par <a> <?= $user->getUserName();?> </a>
+                            <!-----date----->
+                            date : <a> <?= $topic->getPublishDate();?></a>
+                        </p>
+                    </td>
+                    <td><p><i class="fa-regular fa-message"></i> 1 </p></td>
+                    <td>
+                        <p>
+                            <a href="#"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="#"><i class="fa-solid fa-trash"></i></a>
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <a class="button variant" href="lock">Lock</a>
+                        </p>
+                    </td>
                 </tr>
         <?php } ?>
         
