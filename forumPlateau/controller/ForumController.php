@@ -39,6 +39,7 @@ class ForumController extends AbstractController implements ControllerInterface
                 "posts" => $postManager->fetchPostsByTopic($id)
             ]
         ];
+
     }
 
     //list les topics par category

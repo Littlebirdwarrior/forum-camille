@@ -8,10 +8,6 @@
     Nous encourageons tous les membres à se respecter les uns les autres et à garder une attitude positive envers nos amis à fourrure. 
 </p>
 
-<p>
-    <a href="index.php?ctrl=forum&action=listCategories">List Categories</a>
-</p>
-
 
 <?php
 //var_dump($result["data"]['topics']);

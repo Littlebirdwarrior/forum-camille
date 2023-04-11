@@ -21,6 +21,7 @@
                 <nav>
                     <div id="nav-left">
                         <a href="index.php">Accueil</a>
+                        <a href="index.php?ctrl=forum&action=listCategories">List Categories</a>
                         <?php
                         if(App\Session::isAdmin()){
                             ?>

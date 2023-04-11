@@ -1,14 +1,24 @@
 <?php
 //var_dump($topic = $result["data"]["topics"]->current()); die;
 
+//si jamais la catégorie existe mais pas les posts (idéalement page 404)
+if(!isset($result["data"]["topics"])){
+    echo "Pas de topic dans cette catégories";
+    die;
+}
+
+//sinon on continue 
 $topics = $result["data"]["topics"];
 $category = $topics->current()->getCategory();
 $categoryId = $_GET['id'];
+
+
 
 ?>
 <div>
     <h1><?= $category->getName()?></h1>
 </div>
+
 
 <div>
     <table>
@@ -89,4 +99,4 @@ $categoryId = $_GET['id'];
       <input class="button variant" type="submit" value="OK" name="submit" />
    </div>
 </form> 
-
+   

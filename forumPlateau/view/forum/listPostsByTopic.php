@@ -1,5 +1,11 @@
 <?php
 //var_dump($result["data"]['posts']->current()); die;
+//si jamais la catégorie existe mais pas les posts (idéalement page 404)
+if(!isset($result["data"]["posts"])){
+    echo "Pas de post sur ce sujet";
+    die;
+}
+
 $posts = $result["data"]['posts'];
 $topic = $posts->current()->getTopic();
 $topicId = $_GET['id']; //ici, la valeur de l'id est récupérée par l'url
