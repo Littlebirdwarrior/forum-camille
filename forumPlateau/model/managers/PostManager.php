@@ -29,7 +29,7 @@
         }
 
         //Update le texte d'un post
-        public function updatePost($text, $id){
+        public function updatePostInDB($text, $id){
             $sql = "UPDATE ".$this->tableName." 
             SET text = :text 
             WHERE id_post = :id";

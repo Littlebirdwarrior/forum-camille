@@ -61,12 +61,15 @@ class ForumController extends AbstractController implements ControllerInterface
     public function updatePost($id){
         $postManager = new PostManager();
         $text = $postManager->findOneById($id)->getText();
+        $id = $postManager->findOneById($id)->getId();
 
         //----modifier le post
         if(isset($_POST['submit'])){
         //je vide mon post ce charactères dangereux
             $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $postManager->updatePost($text, $id);
+            $postManager->updatePostInDB($text, $id);
+            Session::addFlash("message", "Post updated");
+            $this->redirectTo("forum", "listPostsByTopic", $id);
         }
         else {
             $_SESSION["error"] = "Ce message n'a pas été ajouté";
