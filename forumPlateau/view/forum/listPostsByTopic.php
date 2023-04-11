@@ -26,6 +26,10 @@ foreach( $posts as $post ) {
             <p>
             <?= $post-> getText()?>
             </p>
+            <p class="update-create">
+                    <a href="#"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="#"><i class="fa-solid fa-trash"></i></a>          
+            </p>
         </div>
     </div>
 <?php } ?>

@@ -186,6 +186,16 @@ a:visited {
   text-decoration: none;
 }
 
+.update-create {
+width: 98%;
+display: flex;
+justify-content: flex-end;
+}
+
+.update-create a{
+  opacity: 0.5;
+}
+
 .button {
   display: inline-block;
   height: 30px;
