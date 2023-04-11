@@ -88,13 +88,13 @@ class ForumController extends AbstractController implements ControllerInterface
     public function deletePost($id){
         $postManager = new postManager();
 
-        //recuperer l'topic_id
-        $id = $postManager->findOneByid($id)->getId();
+        //recuperer le post id
+        $topic_id = $postManager->findOneByid($id)->getTopic()->getId();
 
         //supprimer mon post 
-        $postManager->deletePostInDB($id);
+        $postManager->deletePostInDB(intval($id));
         Session::addFlash("message", "Post deleted");
-        $this->redirectTo("forum", "listPostsByTopic", $id);
+        $this->redirectTo("forum", "listPostsByTopic", $topic_id);
 
     }
     
@@ -193,6 +193,11 @@ class ForumController extends AbstractController implements ControllerInterface
                 "category" => $category
             ]
         ];
+    }
+
+
+    public function countPostsByTopic($id) {
+        
     }
 
 

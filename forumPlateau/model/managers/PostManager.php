@@ -38,7 +38,7 @@
         }
 
         //Detete un post
-        public function deletePostInBD($id){            
+        public function deletePostInDB($id){            
             $sql = "DELETE FROM ".$this->tableName." 
                     WHERE id_".$this->tableName." = :id";
     
