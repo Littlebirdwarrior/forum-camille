@@ -136,9 +136,9 @@ class ForumController extends AbstractController implements ControllerInterface
                     $postManager->add(["text" => $text, "topic_id" => $last_id, "user_id" => $user_id]);//*! ici l'id devra être le dernier créer
                     Session::addFlash("Success", "Post added successfully");
                     //je redirige ma page
-                    $this->redirectTo("forum", "listTopicByCat", $id);
+                    $this->redirectTo("forum", "listTopicsByCat", $id);
                 } else {
-                    $this->redirectTo("forum", "listTopicByCat", $id);
+                    $this->redirectTo("forum", "listTopicsByCat", $id);
                     echo 'erreur';
                 }
             } else {
@@ -147,7 +147,7 @@ class ForumController extends AbstractController implements ControllerInterface
         }
 
         return [
-            "view" => VIEW_DIR . "forum/listTopicByCat.php",//*! ici pas sûre que c'est bien la catégorie que l'on rajoute
+            "view" => VIEW_DIR . "forum/listTopicsByCat.php",//*! ici pas sûre que c'est bien la catégorie que l'on rajoute
             "data" => [
                 "category" => $category
             ]

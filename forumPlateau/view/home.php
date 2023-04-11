@@ -37,7 +37,7 @@ $topics = $result["data"]['topics'];
             ?>
                 <tr>
                     <!-----categorie----->
-                    <td><a href="index.php?ctrl=forum&action=listTopicsByCat&id=<?=$topic->getId()?>"><?= $category->getName();?></a></td>
+                    <td><a href="index.php?ctrl=forum&action=listTopicsByCat&id=<?=$category->getId()?>"><?= $category->getName();?></a></td>
                     <!-----titre----->
                     <td><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?=$topic->getId()?>"><?=$topic->getTitle();?></a></td>
                     <!-----Auteur----->

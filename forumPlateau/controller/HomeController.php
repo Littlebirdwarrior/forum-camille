@@ -21,8 +21,7 @@
                 "view" => VIEW_DIR."home.php",//ici remplace require
                 //tableau data qui vas chercher topics
                 "data" => [
-                    "topics" => $topicManager->findAll(["publishDate", "DESC"])
-                ]
+                    "topics" => $topicManager->findAll(["publishDate", "DESC"])                ]
             ];
         
         }
