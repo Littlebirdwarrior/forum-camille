@@ -70,10 +70,11 @@ $categoryId = $_GET['id'];
 </div>
 
 
-<h2>Ajouter un sujet</h2>
 
-<form method="post"><!----ici, id existe pas encore---->
-<!--------- action="index.php?ctrl=forum&action=addTopic&id=<?=$categoryId?>" ------------->
+
+<form  action="index.php?ctrl=forum&action=addTopic&id=21" method="post"><!----ici, id existe pas encore---->
+<h2>Ajouter un sujet</h2>
+<!-----------<?=$categoryId?>----------->
    <div>
       <label for="user">Utilisateur: <?=$user-> getUserName()?> </label><br />
       <label for="labelTopic"> Votre sujet : </label><br />

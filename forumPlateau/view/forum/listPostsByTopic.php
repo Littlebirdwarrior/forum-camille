@@ -31,10 +31,10 @@ foreach( $posts as $post ) {
 <?php } ?>
 
 <!-- ... -->
-<h2>Ajouter un post</h2>
 
 <form action="index.php?ctrl=forum&action=addPost&id=<?=$topicId?>" method="post"><!----ici, id existe pas encore--->
-   <div>
+    <h2>Ajouter un post</h2>
+    <div>
       <label for="user">Utilisateur : <?=$user-> getUserName()?> </label><br />
       <label for="topic">Sujet : <?=$topic-> getTitle()?></label>
    </div>
@@ -43,7 +43,7 @@ foreach( $posts as $post ) {
       <textarea name="textPost" required></textarea>
    </div>
    <div>
-      <input type="submit" value="OK" name="submit" />
+      <input class="button variant" type="submit" value="OK" name="submit" />
    </div>
 </form>
 <!-- ... -->
