@@ -86,7 +86,7 @@ $categoryId = $_GET['id'];
       <textarea name="textPost" required></textarea>
    </div>
    <div>
-      <input type="submit" value="OK" name="submit" />
+      <input class="button variant" type="submit" value="OK" name="submit" />
    </div>
 </form> 
 

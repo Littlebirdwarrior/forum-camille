@@ -1,6 +1,12 @@
 <h1>BIENVENUE SUR LE FORUM</h1>
 
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit ut nemo quia voluptas numquam, itaque ipsa soluta ratione eum temporibus aliquid, facere rerum in laborum debitis labore aliquam ullam cumque.</p>
+<p>Bienvenue à tous sur notre forum pour chiens ! Nous sommes ravis de vous accueillir parmi notre communauté passionnée de nos amis à quatre pattes. Que vous soyez propriétaire d'un chien ou simplement un amoureux des animaux, 
+    vous trouverez ici un espace convivial et chaleureux pour discuter de tout ce qui concerne nos compagnons canins.<br>
+    
+</p>
+<p>
+    Nous encourageons tous les membres à se respecter les uns les autres et à garder une attitude positive envers nos amis à fourrure. 
+</p>
 
 <p>
     <a href="index.php?ctrl=forum&action=listCategories">List Categories</a>
