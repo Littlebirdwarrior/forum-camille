@@ -25,9 +25,7 @@ $topics = $result["data"]['topics'];
         <thead>
             <tr>
                 <th>Catégorie</th>
-                <th>Titre</th>
-                <th>Auteur</th>
-                <th>Date</th>
+                <th>Sujet</th>
             </tr>
         </thead>
         <tbody>
@@ -44,12 +42,21 @@ $topics = $result["data"]['topics'];
                 <tr>
                     <!-----categorie----->
                     <td><a href="index.php?ctrl=forum&action=listTopicsByCat&id=<?=$category->getId()?>"><?= $category->getName();?></a></td>
-                    <!-----titre----->
-                    <td><a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?=$topic->getId()?>"><?=$topic->getTitle();?></a></td>
-                    <!-----Auteur----->
-                    <td><?= $user->getUserName();?></td>
-                    <!-----date----->
-                    <td><?= $topic->getPublishDate();?></td>
+                    
+                    <td>
+                        <p>
+                            <h3>
+                                <!-----titre----->
+                                <a href="index.php?ctrl=forum&action=listPostsByTopic&id=<?=$topic->getId()?>"><?=$topic->getTitle();?></a>
+                            </h3><br>
+                            <span>
+                                <!-----Auteur----->
+                                Par <?= $user->getUserName();?> |
+                                <!-----date----->
+                                 Le <?= $topic->getPublishDate();?>
+                            </span>
+                        </p>
+                    </td>
                 </tr>
         <?php } ?>
         

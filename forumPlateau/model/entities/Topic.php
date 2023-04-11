@@ -67,7 +67,8 @@ final class Topic extends Entity {
      */ 
     public function getPublishDate()
     {
-        return $this->publishDate;
+        $formatDate = $this->publishDate->format('d/m/Y à H:i:s');
+        return $formatDate;
     }
 
     /**
@@ -77,7 +78,7 @@ final class Topic extends Entity {
      */ 
     public function setPublishDate($publishDate)
     {
-        $this->publishDate = $publishDate;
+        $this->publishDate =  new \DateTime($publishDate);;
 
         return $this;
     }
