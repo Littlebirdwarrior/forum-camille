@@ -57,7 +57,7 @@ class ForumController extends AbstractController implements ControllerInterface
     }
     //*CRUD POSTS
     //UPDATE updatePost : modifier le message d'un post
-    
+    //*! ne marche pas 
     public function updatePost($id){
         $postManager = new PostManager();
         $text = $postManager->findOneById($id)->getText();
@@ -83,7 +83,7 @@ class ForumController extends AbstractController implements ControllerInterface
             ]
         ];
     }
-
+     //*! ne marche pas
     //DELETE supprimer un post
     public function deletePost($id){
         $postManager = new postManager();
@@ -152,8 +152,7 @@ class ForumController extends AbstractController implements ControllerInterface
         $category = $categoryManager->findOneById($id);
 
         //je cree le nouveau manager topic
-        $topicManager = new TopicManager();//*! comment récupérer l'id tout juste créer
-
+        $topicManager = new TopicManager();
         //je cree le nouveau manager post
         $postManager = new PostManager();
 
@@ -189,7 +188,7 @@ class ForumController extends AbstractController implements ControllerInterface
         }
 
         return [
-            "view" => VIEW_DIR . "forum/listTopicsByCat.php",//*! ici pas sûre que c'est bien la catégorie que l'on rajoute
+            "view" => VIEW_DIR . "forum/listTopicsByCat.php",
             "data" => [
                 "category" => $category
             ]
