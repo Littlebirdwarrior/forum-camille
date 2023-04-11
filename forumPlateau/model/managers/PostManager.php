@@ -39,11 +39,10 @@
 
         //Detete un post
         public function deletePostInBD($id){            
-
-            $deletePostInDB = "DELETE FROM ".$this->tableName." 
+            $sql = "DELETE FROM ".$this->tableName." 
                     WHERE id_".$this->tableName." = :id";
     
-            DAO::delete($deletePostInDB, ['id' => $id]);
+            DAO::delete($sql, ['id' => $id]);
                     
         }
     }
