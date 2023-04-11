@@ -83,6 +83,20 @@ class ForumController extends AbstractController implements ControllerInterface
             ]
         ];
     }
+
+    //DELETE supprimer un post
+    public function deletePost($id){
+        $postManager = new postManager();
+
+        //recuperer l'topic_id
+        $id = $postManager->findOneByid($id)->getId();
+
+        //supprimer mon post 
+        $postManager->deletePostInDB($id);
+        Session::addFlash("message", "Post deleted");
+        $this->redirectTo("forum", "listPostsByTopic", $id);
+
+    }
     
 
     //CREATE addPost : ajouter un post depuis un Topic préétablis 

@@ -30,10 +30,20 @@
 
         //Update le texte d'un post
         public function updatePostInDB($text, $id){
-            $sql = "UPDATE ".$this->tableName." 
+            $sql = "UPDATE ".$this->tableName." p
             SET text = :text 
-            WHERE id_post = :id";
+            WHERE p.id_".$this->tableName." = :id";
 
             DAO::update($sql, ['text' => $text, 'id_post' => $id]);
+        }
+
+        //Detete un post
+        public function deletePostInBD($id){            
+
+            $deletePostInDB = "DELETE FROM ".$this->tableName." 
+                    WHERE id_".$this->tableName." = :id";
+    
+            DAO::delete($deletePostInDB, ['id' => $id]);
+                    
         }
     }
