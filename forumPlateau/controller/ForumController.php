@@ -55,8 +55,34 @@ class ForumController extends AbstractController implements ControllerInterface
             ]
         ];
     }
+    //*CRUD POSTS
+    //UPDATE updatePost : modifier le message d'un post
+    
+    public function UpdatePost($id){
+        $postManager = new PostManager();
+        $text = $postManager->findOneById($id)->getText();
 
-    //addPost : ajouter un post depuis un Topic préétablis 
+        //----modifier le post
+        if(isset($_POST['submit'])){
+        //je vide mon post ce charactères dangereux
+            $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $postManager->updatePost($text, $id);
+        }
+        else {
+            $_SESSION["error"] = "Ce message n'a pas été ajouté";
+        }
+
+        //----diriger vers le form de updatePost et l'afficher (avec le bon id)
+        return [[
+            "view" => VIEW_DIR. "forum/updatePost.php",
+            "data" => [
+                "text" => $text
+            ]
+        ]];
+    }
+    
+
+    //CREATE addPost : ajouter un post depuis un Topic préétablis 
     public function addPost($id)
     {
 
@@ -101,11 +127,10 @@ class ForumController extends AbstractController implements ControllerInterface
             ]
         ];
     }
-
-    //addTopic : ajouter un topic et un post depuis une categorie préétablis
+    //*CRUD TOPIC
+    //CREATE addTopic : ajouter un topic et un post depuis une categorie préétablis
     public function addTopic($id)
     {
-
         //ce cree un nouveau manager topic
         $categoryManager = new CategoryManager();
         $category = $categoryManager->findOneById($id);

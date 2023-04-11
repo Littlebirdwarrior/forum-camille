@@ -14,6 +14,7 @@
             parent::connect();
         }
 
+        //recuperer tous les post d'un topic
         public function fetchPostsByTopic($id)
         {
             $sql = "SELECT *
@@ -25,5 +26,14 @@
                 DAO::select($sql, ['id' => $id]),
                 $this->className
             );
+        }
+
+        //Update le texte d'un post
+        public function updatePost($text, $id){
+            $sql = "UPDATE ".$this->tableName." 
+            SET text = :text 
+            WHERE id = :id";
+
+            DAO::update($sql, ['text' => $text, 'id' => $id]);
         }
     }
