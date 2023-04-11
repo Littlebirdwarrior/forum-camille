@@ -32,11 +32,13 @@ class ForumController extends AbstractController implements ControllerInterface
     {
 
         $postManager = new PostManager();
+        $topicManager = new TopicManager();
 
         return [
             "view" => VIEW_DIR . "forum/listPostsbyTopic.php",
             "data" => [
-                "posts" => $postManager->fetchPostsByTopic($id)
+                "posts" => $postManager->fetchPostsByTopic($id),
+                "topic" => $topicManager->findOneById($id)
             ]
         ];
 
@@ -66,14 +68,18 @@ class ForumController extends AbstractController implements ControllerInterface
         if(isset($_POST['submit'])){
             //je vide mon post ce charactères dangereux
             $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $postManager->updatePostInDB($text, intval($id));
-            Session::addFlash("message", "Post updated");
             
+            try {
+                //ici, l'id est une string, or, il faut le convertir en int
+                $postManager->updatePostInDB($text, intval($id));
+                Session::addFlash("message", "Post updated");
+            } catch (\Exception $e){
+                $_SESSION["error"] = "Ce message n'a pas été ajouté";
+            }
+            
+            //Pour la redirection, on charge le topic_id seulement ici (en cas de submit, eviter perte perf)
             $topic_id = $postManager->findOneByid($id)->getTopic()->getId();
             $this->redirectTo("forum", "listPostsByTopic", $topic_id);
-        }
-        else {
-            $_SESSION["error"] = "Ce message n'a pas été ajouté";
         }
 
         //----diriger vers le form de updatePost et l'afficher (avec le bon id)
@@ -88,13 +94,17 @@ class ForumController extends AbstractController implements ControllerInterface
     //DELETE supprimer un post
     public function deletePost($id){
         $postManager = new postManager();
-
         //recuperer le topic id
         $topic_id = $postManager->findOneByid($id)->getTopic()->getId();
 
-        //supprimer mon post 
-        $postManager->deletePostInDB(intval($id));
-        Session::addFlash("message", "Post deleted");
+        try {
+            //supprimer mon post 
+            $postManager->deletePostInDB(intval($id));
+            Session::addFlash("message", "Post deleted");
+        } catch (\Exception $e){
+            $_SESSION["error"] = "Ce message n'a pas été supprimé";
+        }
+        
         $this->redirectTo("forum", "listPostsByTopic", $topic_id);
 
     }
