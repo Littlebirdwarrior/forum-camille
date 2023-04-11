@@ -34,7 +34,7 @@
             SET text = :text 
             WHERE p.id_".$this->tableName." = :id";
 
-            DAO::update($sql, ['text' => $text, 'id_post' => $id]);
+            DAO::update($sql, ['text' => $text, 'id' => $id]);
         }
 
         //Detete un post

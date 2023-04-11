@@ -61,15 +61,16 @@ class ForumController extends AbstractController implements ControllerInterface
     public function updatePost($id){
         $postManager = new PostManager();
         $text = $postManager->findOneById($id)->getText();
-        $id = $postManager->findOneById($id)->getId();
-
+        
         //----modifier le post
         if(isset($_POST['submit'])){
-        //je vide mon post ce charactères dangereux
+            //je vide mon post ce charactères dangereux
             $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $postManager->updatePostInDB($text, $id);
+            $postManager->updatePostInDB($text, intval($id));
             Session::addFlash("message", "Post updated");
-            $this->redirectTo("forum", "listPostsByTopic", $id);
+            
+            $topic_id = $postManager->findOneByid($id)->getTopic()->getId();
+            $this->redirectTo("forum", "listPostsByTopic", $topic_id);
         }
         else {
             $_SESSION["error"] = "Ce message n'a pas été ajouté";
@@ -88,7 +89,7 @@ class ForumController extends AbstractController implements ControllerInterface
     public function deletePost($id){
         $postManager = new postManager();
 
-        //recuperer le post id
+        //recuperer le topic id
         $topic_id = $postManager->findOneByid($id)->getTopic()->getId();
 
         //supprimer mon post 
