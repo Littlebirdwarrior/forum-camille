@@ -8,7 +8,7 @@ $postId = $_GET['id'];
         <h2>Modifier un message</h2>
         <!---------------------->
         <div>
-            <textarea name="textPost" required></textarea>
+            <textarea name="textPost" required><?=$text?></textarea>
         </div>
         <div>
             <input class="button variant" type="submit" value="Modifier" name="submit" />

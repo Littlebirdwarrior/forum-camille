@@ -58,7 +58,7 @@ class ForumController extends AbstractController implements ControllerInterface
     //*CRUD POSTS
     //UPDATE updatePost : modifier le message d'un post
     
-    public function UpdatePost($id){
+    public function updatePost($id){
         $postManager = new PostManager();
         $text = $postManager->findOneById($id)->getText();
 
@@ -73,12 +73,12 @@ class ForumController extends AbstractController implements ControllerInterface
         }
 
         //----diriger vers le form de updatePost et l'afficher (avec le bon id)
-        return [[
-            "view" => VIEW_DIR. "forum/updatePost.php",
+        return [
+            "view" => VIEW_DIR . "forum/updatePost.php",
             "data" => [
                 "text" => $text
             ]
-        ]];
+        ];
     }
     
 
@@ -113,7 +113,6 @@ class ForumController extends AbstractController implements ControllerInterface
                     $this->redirectTo("forum", "listPostsByTopic", $id);
                 } else {
                     $this->redirectTo("forum", "listPostsByTopic", $id);
-                    echo 'erreur';
                 }
             } else {
                 Session::addFlash("Error", "Blank input");

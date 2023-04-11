@@ -32,8 +32,8 @@
         public function updatePost($text, $id){
             $sql = "UPDATE ".$this->tableName." 
             SET text = :text 
-            WHERE id = :id";
+            WHERE id_post = :id";
 
-            DAO::update($sql, ['text' => $text, 'id' => $id]);
+            DAO::update($sql, ['text' => $text, 'id_post' => $id]);
         }
     }

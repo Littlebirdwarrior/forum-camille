@@ -33,7 +33,7 @@ foreach( $posts as $post ) {
             <?= $post-> getText()?>
             </p>
             <p class="update-create">
-                    <a href="index.php?ctrl=forum&action=updatePost&id=<?=$categoryId?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <a href="index.php?ctrl=forum&action=updatePost&id=<?=$post->getId()?>"><i class="fa-solid fa-pen-to-square"></i></a>
                     <a href="#"><i class="fa-solid fa-trash"></i></a>          
             </p>
         </div>
