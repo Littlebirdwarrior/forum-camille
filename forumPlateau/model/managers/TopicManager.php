@@ -31,7 +31,7 @@
             );   
         }
 
-        //Update le titre d'une categorie
+        //Update le titre d'une categorie 
         public function updateTopicInDB($id, $title)
         {
             $sql = "UPDATE ".$this->tableName." t
@@ -49,5 +49,7 @@
 
             DAO::delete($sql, ['id' => $id]);
         }
+        
+        //(dans DAO, 'id_topic' s'appelle id pour la methode update et delete dans Manager.php)
 
     }
