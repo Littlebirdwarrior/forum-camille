@@ -256,6 +256,22 @@ class ForumController extends AbstractController implements ControllerInterface
         $topicManager = new TopicManager();
         $category_id = $topicManager->findOneById($id)->getCategory()->getId();
 
+        $postManager = new PostManager();
+        $posts = $postManager->fetchPostsByTopic($id);//nb : ici, l'id est celui du topic
+
+        //boucle pour supprimer tous les posts de ce topic
+        try 
+        {
+            foreach ($posts as $post) {
+                $post_id = $post->getId();//! ici, a voir si l'id passe
+                $postManager->deletePostInDB(intval($post_id));
+            }
+        } catch (\Exception $e) 
+        {
+            $_SESSION["error"] = "Les posts du sujet ne sont pas supprimé";
+        }
+
+        //supprimer le topic
         try 
         {
             //supprimer mon topic
@@ -266,6 +282,7 @@ class ForumController extends AbstractController implements ControllerInterface
         {
             $_SESSION["error"] = "Ce sujet n'a pas été supprimé";
         }
+
         //Redirection
         $this->redirectTo("forum", "listTopicsByCat", $category_id);
 
