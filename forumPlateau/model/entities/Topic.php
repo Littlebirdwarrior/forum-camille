@@ -15,6 +15,7 @@ final class Topic extends Entity {
     private $lock;
     private $user;
     private $category;
+    private $nbPosts;
 
     //cela permet d'attribuer 
     public function __construct($data) {
@@ -140,6 +141,26 @@ final class Topic extends Entity {
     public function setCategory($category)
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of nbPosts
+     */ 
+    public function getNbPosts()
+    {
+        return $this->nbPosts;
+    }
+
+    /**
+     * Set the value of nbPosts
+     *
+     * @return  self
+     */ 
+    public function setNbPosts($nbPosts)
+    {
+        $this->nbPosts = $nbPosts;
 
         return $this;
     }

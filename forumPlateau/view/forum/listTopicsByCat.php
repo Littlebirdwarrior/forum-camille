@@ -56,7 +56,7 @@ $categoryId = $_GET['id'];
                             </p>
                         </td>
                         <td>
-                            <p><i class="fa-regular fa-message"></i> 1 </p>
+                            <p><i class="fa-regular fa-message"></i><?= $topic->getNbPosts() ?> </p>
                         </td>
                         <td>
                             <p> <!-----ici update / create---------->

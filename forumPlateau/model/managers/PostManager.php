@@ -18,7 +18,7 @@
         public function fetchPostsByTopic($id)
         {
             $sql = "SELECT *
-                FROM ".$this->tableName." p
+                FROM ".$this->tableName."
                 WHERE p.topic_id = :id
                 ORDER BY publishDate";
 
@@ -27,6 +27,9 @@
                 $this->className
             );
         }
+
+        //compter les post d'un topic
+
 
         //Update le texte d'un post
         public function updatePostInDB($text, $id)

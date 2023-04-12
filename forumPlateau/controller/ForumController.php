@@ -289,8 +289,6 @@ class ForumController extends AbstractController implements ControllerInterface
 
     }
 
-    //*COUNT
-
 
 //fermeture fonction
 }
