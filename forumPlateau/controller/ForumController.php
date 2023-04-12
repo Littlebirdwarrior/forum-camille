@@ -133,7 +133,7 @@ class ForumController extends AbstractController implements ControllerInterface
         // if($_SESSION['user']){
         //Je recupère mon id user et mon id cat
         // $user_id = $_SESSION['user']->getId();
-        $user_id = 21;//*!a modifier
+        $user_id = 42;//*!a modifier
 
         if (isset($_POST['submit'])) {
             //var_dump ici ne marche pas
@@ -180,11 +180,12 @@ class ForumController extends AbstractController implements ControllerInterface
         // if($_SESSION['user']){
         //Je recupère mon id user et mon id cat
         // $user_id = $_SESSION['user']->getId();
-        $user_id = 21;//*!a modifier lors de la creation des connexions
+        $user_id = 42;//*!a modifier lors de la creation des connexions
 
         if (isset($_POST['submit'])) {
             //var_dump ici ne marche pas
-            if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) { //*!ici, il faut que le champs topic ne soit pas vide
+            if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) { 
+                //*ici, il faut que le champs topic ne soit pas vide
                 //je vide mon post ce charactères dangereux
                 $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $title = filter_input(INPUT_POST, "titleTopic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -194,7 +195,7 @@ class ForumController extends AbstractController implements ControllerInterface
                     //j'insère mes données dans la table topic
                     $last_id = $topicManager->add(["title"=> $title, "user_id" => $user_id, "category_id" => $category_id]);
                     //j'insére mes données dans la table post
-                    $postManager->add(["text" => $text, "topic_id" => $last_id, "user_id" => $user_id]);//*! ici l'id devra être le dernier créer
+                    $postManager->add(["text" => $text, "topic_id" => $last_id, "user_id" => $user_id]);//* ici l'id devra être le dernier créer
                     Session::addFlash("Success", "Post added successfully");
                     //je redirige ma page
                     $this->redirectTo("forum", "listTopicsByCat", $id);
@@ -250,7 +251,7 @@ class ForumController extends AbstractController implements ControllerInterface
     }
 
     //DELETE supprimer mon topic
-    //!Ne marche pas si le topic possède des posts
+    
     public function deleteTopic($id)
     {
         $topicManager = new TopicManager();
@@ -263,7 +264,7 @@ class ForumController extends AbstractController implements ControllerInterface
         try 
         {
             foreach ($posts as $post) {
-                $post_id = $post->getId();//! ici, a voir si l'id passe
+                $post_id = $post->getId();
                 $postManager->deletePostInDB(intval($post_id));
             }
         } catch (\Exception $e) 
