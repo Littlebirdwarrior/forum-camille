@@ -94,7 +94,7 @@ class ForumController extends AbstractController implements ControllerInterface
     //DELETE supprimer un post
     public function deletePost($id){
         $postManager = new postManager();
-        //recuperer le topic id
+        //recuperer le topic id (à mettre avant suppression du post)
         $topic_id = $postManager->findOneByid($id)->getTopic()->getId();
 
         try {

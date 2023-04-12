@@ -16,6 +16,7 @@
             parent::connect();
         }
 
+        //recuperer tous les topics d'une categorie
         public function fetchTopicsByCat($id)
         {
             $sql= "SELECT * 
@@ -27,8 +28,26 @@
              return $this->getMultipleResults(
                     DAO::select($sql, ['id' => $id]),
                     $this->className
-            );
-              
+            );   
+        }
+
+        //Update le titre d'une categorie
+        public function updateTopicInDB($id, $title)
+        {
+            $sql = "UPDATE ".$this->tableName." t
+            SET t.title = :title 
+            WHERE t.id_".$this->tableName." = :id";
+
+            DAO::update($sql, ['id' => $id, 'title' => $title]);
+        }
+
+        //Delete un topic
+        public function deleteTopicInDB($id)
+        {
+            $sql = "DELETE FROM ".$this->tableName." t
+            WHERE t.id_".$this->tableName." = :id";
+
+            DAO::delete($sql, ['id' => $id]);
         }
 
     }
