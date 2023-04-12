@@ -228,7 +228,9 @@ class ForumController extends AbstractController implements ControllerInterface
                 $_SESSION["error"] = "Ce sujet n'a pas été modifié";
             }
 
-            //*!redirection vers listTopicsByCat
+            //redirection vers listTopicsByCat
+            $category_id = $topic->getCategory()->getId();
+            $this->redirectTo("forum", "listTopicsByCat", $category_id);
         }
 
         //---redirection vers le form
