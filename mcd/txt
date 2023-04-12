@@ -17,3 +17,5 @@ http://localhost/index.php?ctrl=forum&action=updatePost&id=5
 http://localhost/index.php?ctrl=forum&action=listPostsByTopic&id=2
 
 "C:\Users\camil\Documents\www\forum-camille\forumPlateau\view/forum/listPostsbyTopic.php"
+
+http://localhost/index.php?ctrl=forum&action=deleteTopic&id=21

@@ -49,15 +49,19 @@ class ForumController extends AbstractController implements ControllerInterface
     {
 
         $topicManager = new TopicManager();
+        $categoryManager = new CategoryManager();
 
         return [
             "view" => VIEW_DIR . "forum/listTopicsByCat.php",
             "data" => [
-                "topics" => $topicManager->fetchTopicsByCat($id)
+                "topics" => $topicManager->fetchTopicsByCat($id),
+                "category" => $categoryManager->findOneById($id)
             ]
         ];
     }
+
     //*CRUD POSTS
+
     //UPDATE updatePost : modifier le message d'un post 
     public function updatePost($id){
         $postManager = new PostManager();
@@ -92,22 +96,25 @@ class ForumController extends AbstractController implements ControllerInterface
             ]
         ];
     }
+
     //DELETE supprimer un post
     public function deletePost($id){
         $postManager = new postManager();
         //recuperer le topic id (à mettre avant suppression du post)
         $topic_id = $postManager->findOneByid($id)->getTopic()->getId();
 
-        try {
+        try 
+        {
             //supprimer mon post 
             $postManager->deletePostInDB(intval($id));
             Session::addFlash("message", "Post deleted");
+
         } catch (\Exception $e){
             $_SESSION["error"] = "Ce message n'a pas été supprimé";
         }
-        
-        $this->redirectTo("forum", "listPostsByTopic", $topic_id);
 
+        //Redirection
+        $this->redirectTo("forum", "listPostsByTopic", $topic_id);
     }
     
 
@@ -156,6 +163,7 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
     //*CRUD TOPIC
+
     //CREATE addTopic : ajouter un topic et un post depuis une categorie préétablis
     public function addTopic($id)
     {
@@ -211,8 +219,7 @@ class ForumController extends AbstractController implements ControllerInterface
     public function updateTopic($id){
 
         $topicManager = new TopicManager();
-        $topic = $topicManager->findOneById($id);
-        $title = $topic->getTitle();
+        $title = $topicManager->findOneById($id)->getTitle();
 
         //---modifier le topic
         if (isset($_POST['submit'])) 
@@ -243,6 +250,25 @@ class ForumController extends AbstractController implements ControllerInterface
     }
 
     //DELETE supprimer mon topic
+    public function deleteTopic($id)
+    {
+        $topicManager = new TopicManager();
+        $category_id = $topicManager->findOneById($id)->getCategory()->getId();
+
+        try 
+        {
+            //supprimer mon topic
+            $topicManager->deleteTopicInDB(intval($id));
+            Session::addFlash("Success", "Topic deleted");
+
+        } catch (\Exception $e)
+        {
+            $_SESSION["error"] = "Ce sujet n'a pas été supprimé";
+        }
+        //Redirection
+        $this->redirectTo("forum", "listTopicsByCat", ($category_id));
+
+    }
 
     //*COUNT
 

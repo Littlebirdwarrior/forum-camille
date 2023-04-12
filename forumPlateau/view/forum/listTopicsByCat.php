@@ -3,7 +3,7 @@
 
 //sinon on continue 
 $topics = $result["data"]["topics"];
-$category = $topics->current()->getCategory();
+$category = $result["data"]["category"];
 $categoryId = $_GET['id'];
 
 
@@ -34,6 +34,7 @@ $categoryId = $_GET['id'];
                 foreach ($topics as $topic) {
                     //je recupère l'object user (auteur)
                     $user = $topic->getUser();
+                    
             ?>
                     <tr>
                         <!-----Statut----->
@@ -58,9 +59,9 @@ $categoryId = $_GET['id'];
                             <p><i class="fa-regular fa-message"></i> 1 </p>
                         </td>
                         <td>
-                            <p> <!-----ici update create---------->
+                            <p> <!-----ici update / create---------->
                                 <a href="index.php?ctrl=forum&action=updateTopic&id=<?= $topic->getId() ?>"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <a href="#"><i class="fa-solid fa-trash"></i></a>
+                                <a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>"><i class="fa-solid fa-trash"></i></a>
                             </p>
                         </td>
                         <td>
