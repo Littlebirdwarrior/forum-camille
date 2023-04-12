@@ -18,7 +18,7 @@
         public function fetchPostsByTopic($id)
         {
             $sql = "SELECT *
-                FROM ".$this->tableName."
+                FROM ".$this->tableName." p
                 WHERE p.topic_id = :id
                 ORDER BY publishDate";
 
