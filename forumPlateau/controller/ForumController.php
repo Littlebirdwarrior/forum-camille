@@ -236,7 +236,7 @@ class ForumController extends AbstractController implements ControllerInterface
             }
 
             //redirection vers listTopicsByCat
-            $category_id = $topic->getCategory()->getId();
+            $category_id = $topicManager->findOneById($id)->getCategory()->getId();
             $this->redirectTo("forum", "listTopicsByCat", $category_id);
         }
 
@@ -250,6 +250,7 @@ class ForumController extends AbstractController implements ControllerInterface
     }
 
     //DELETE supprimer mon topic
+    //!Ne marche pas si le topic possède des posts
     public function deleteTopic($id)
     {
         $topicManager = new TopicManager();
@@ -266,7 +267,7 @@ class ForumController extends AbstractController implements ControllerInterface
             $_SESSION["error"] = "Ce sujet n'a pas été supprimé";
         }
         //Redirection
-        $this->redirectTo("forum", "listTopicsByCat", ($category_id));
+        $this->redirectTo("forum", "listTopicsByCat", $category_id);
 
     }
 
