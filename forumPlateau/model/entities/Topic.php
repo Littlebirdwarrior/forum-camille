@@ -8,6 +8,7 @@ use App\Entity;
 
 final class Topic extends Entity {
     //je definis mes identifiants 
+        //! ici, probleme, id (valeur de id_topic) prends la valeur de l'id_category
     private $id;
     private $title;
     private $publishDate;

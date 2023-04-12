@@ -5,7 +5,7 @@ namespace Model\Entities;
 use App\Entity;
 
 final class Post extends Entity {
-
+    
     private $id;
     private $publishDate;
     private $text;
