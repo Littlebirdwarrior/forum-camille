@@ -8,7 +8,7 @@ $topicId = $_GET['id'];
         <h2>Modifier un message</h2>
         <!---------------------->
         <div>
-            <input name="topicTitle" required><?=$title?></input>
+            <input name="topicTitle" value="<?=$title?>" required></input>
         </div>
         <div>
             <input class="button variant" type="submit" value="Modifier" name="submit" />

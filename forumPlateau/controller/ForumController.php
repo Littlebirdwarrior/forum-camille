@@ -58,22 +58,24 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
     //*CRUD POSTS
-    //UPDATE updatePost : modifier le message d'un post
-    //*! ne marche pas 
+    //UPDATE updatePost : modifier le message d'un post 
     public function updatePost($id){
         $postManager = new PostManager();
         $text = $postManager->findOneById($id)->getText();
         
         //----modifier le post
-        if(isset($_POST['submit'])){
+        if(isset($_POST['submit']))
+        {
             //je vide mon post ce charactères dangereux
             $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             
-            try {
+            try 
+            {
                 //ici, l'id est une string, or, il faut le convertir en int
                 $postManager->updatePostInDB($text, intval($id));
-                Session::addFlash("message", "Post updated");
-            } catch (\Exception $e){
+                Session::addFlash("Success", "Post updated");
+            } catch (\Exception $e)
+            {
                 $_SESSION["error"] = "Ce message n'a pas été ajouté";
             }
             
@@ -90,7 +92,6 @@ class ForumController extends AbstractController implements ControllerInterface
             ]
         ];
     }
-     //*! ne marche pas
     //DELETE supprimer un post
     public function deletePost($id){
         $postManager = new postManager();
@@ -206,10 +207,42 @@ class ForumController extends AbstractController implements ControllerInterface
         ];
     }
 
+    //UPDATE updateTopic : modifier le titre d'un topic
+    public function updateTopic($id){
 
-    public function countPostsByTopic($id) {
-        
+        $topicManager = new TopicManager();
+        $topic = $topicManager->findOneById($id);
+        $title = $topic->getTitle();
+
+        //---modifier le topic
+        if (isset($_POST['submit'])) 
+        {
+            $title = filter_input(INPUT_POST, "topicTitle", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            try
+            {
+            $topicManager->updateTopicInDB(intval($id), $title);
+            Session::addFlash("Success", "Topic updated");
+            } catch (\Exception $e)
+            {
+                $_SESSION["error"] = "Ce sujet n'a pas été modifié";
+            }
+
+            //*!redirection vers listTopicsByCat
+        }
+
+        //---redirection vers le form
+        return [
+            "view" => VIEW_DIR . "forum/updateTopic.php",
+            "data" => [
+                "title" => $title,
+            ]
+        ];
     }
+
+    //DELETE supprimer mon topic
+
+    //*COUNT
 
 
 //fermeture fonction
