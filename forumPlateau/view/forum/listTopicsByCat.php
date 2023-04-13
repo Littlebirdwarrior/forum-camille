@@ -35,24 +35,18 @@ $categoryId = $_GET['id'];
                     //je recupère l'object user (auteur)
                     $user = $topic->getUser();
 
-                    //je recupère le lock (1 ou 0)
+                    //je recupère le lock (1 ou 0) et je gère l'affichage en conséquance
                     $lock = $topic->getLock();
+                    //Si lock est true (== 1) ?(if) le a affiche déverouillé :(else) le a affiche verouillé
+                    $btnLock = ($lock) ? '<a class="button variant" href="lock">Deverouiller</a>' : '<a class="button variant" href="lock">Vérouiller</a>';
+                    //if($lock == 1){ $msg = "lock"} else {$msg = "lock-open"}
+                    $msg = ($lock)  ? 'lock' : 'lock-open';
             ?>
                     <tr>
                         <!-----Statut----->
                         <td>
                             <p>
-                            <?php
-                            if($lock == 1)
-                            { ?>
-                                <i class="fa-solid fa-lock"></i>
-                            <?php } 
-                                
-                            else 
-                            { ?>
-                                <i class="fa-solid fa-lock-open"></i>
-                            <?php } ?>
-                                
+                                <i class="fa-solid fa-<?= $msg ?>"></i>
                             </p>
                         </td>
 
@@ -75,22 +69,15 @@ $categoryId = $_GET['id'];
                                 <a href="index.php?ctrl=forum&action=deleteTopic&id=<?= $topic->getId() ?>"><i class="fa-solid fa-trash"></i></a>
                             </p>
                         </td>
-                       
+
                         <td>
                             <?php
-                            if($lock == 1)
-                            { ?>
-                                <p> <!-----ici, unlock----------->
-                                    <a class="button variant" href="lock"><?=$lock?>Deverouiller</a>
-                                </p>
-                            <?php } 
-                                
-                            else 
-                            { ?>
-                                <p> <!-----ici, lock----------->
-                                    <a class="button variant" href="lock"><?=$lock?>Verouiller</a>
-                                </p>
-                            <?php } ?>
+
+                            ?>
+                            <p> <!-----ici, unlock----------->
+                                <?= $btnLock ?>
+                            </p>
+
                         </td>
                     </tr>
             <?php }

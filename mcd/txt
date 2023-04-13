@@ -19,3 +19,13 @@ http://localhost/index.php?ctrl=forum&action=listPostsByTopic&id=2
 "C:\Users\camil\Documents\www\forum-camille\forumPlateau\view/forum/listPostsbyTopic.php"
 
 http://localhost/index.php?ctrl=forum&action=deleteTopic&id=21
+
+                            <?php if($lock == 1)
+                            { ?>
+                                <i class="fa-solid fa-lock"></i>
+                            <?php } 
+                                
+                            else 
+                            { ?>
+                                <i class="fa-solid fa-lock-open"></i>
+                            <?php }

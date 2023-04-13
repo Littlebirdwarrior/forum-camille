@@ -37,7 +37,17 @@
 
         //Lock et unlock un topic
 
-        //Update le titre d'une categorie 
+         //Update le lock d'une categorie 
+         public function updateLockInDB($id, $lock)
+         {
+             $sql = "UPDATE ".$this->tableName." t
+             SET t.lock = :lock 
+             WHERE t.id_".$this->tableName." = :id";
+ 
+             DAO::update($sql, ['id' => $id, 'lock' => $lock]);
+         }
+
+        //Update le titre d'un sujet 
         public function updateTopicInDB($id, $title)
         {
             $sql = "UPDATE ".$this->tableName." t
