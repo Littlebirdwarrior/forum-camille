@@ -121,20 +121,19 @@ class ForumController extends AbstractController implements ControllerInterface
     //CREATE addPost : ajouter un post depuis un Topic préétablis 
     public function addPost($id)
     {
-
         //ce cree un nouveau manager topic
         $topicManager = new TopicManager();
         $topic = $topicManager->findOneById($id);
-
+        
         //je cree le nouveau manager post
         $postManager = new PostManager();
-
+        
         //seulement si l'user est connecté
         // if($_SESSION['user']){
         //Je recupère mon id user et mon id cat
         // $user_id = $_SESSION['user']->getId();
-        $user_id = 42;//*!a modifier
-
+        $user_id = 2;//*!a modifier
+        
         if (isset($_POST['submit'])) {
             //var_dump ici ne marche pas
             if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) {
@@ -180,7 +179,7 @@ class ForumController extends AbstractController implements ControllerInterface
         // if($_SESSION['user']){
         //Je recupère mon id user et mon id cat
         // $user_id = $_SESSION['user']->getId();
-        $user_id = 42;//*!a modifier lors de la creation des connexions
+        $user_id = 2;//*!a modifier lors de la creation des connexions
 
         if (isset($_POST['submit'])) {
             //var_dump ici ne marche pas
