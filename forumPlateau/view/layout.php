@@ -42,7 +42,7 @@
                         else{
                             ?>
                             <a href="./view/security/login.php">Connexion</a>
-                            <a href="/security/register.html">Inscription</a>
+                            <a href="view/security/register.php">Inscription</a>
                         <?php
                         }
                    
