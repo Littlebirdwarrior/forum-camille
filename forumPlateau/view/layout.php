@@ -22,7 +22,10 @@
                     <div id="nav-left">
                         <a href="index.php">Accueil</a>
                         <a href="index.php?ctrl=forum&action=listCategories">List Categories</a>
+                        <a href="index.php?ctrl=security&action=listUsers">Voir la liste des gens</a>
+                        <a href="index.php?ctrl=security&action=userById&id=1">Voir l'user 1</a>
                         <?php
+                        //!url a corrigé
                         if(App\Session::isAdmin()){
                             ?>
                             <a href="index.php?ctrl=home&action=users">Voir la liste des gens</a>
@@ -32,7 +35,7 @@
                     </div>
                     <div id="nav-right">
                     <?php
-                        
+                        //!url a corrigé
                         if(App\Session::getUser()){
                             ?>
                             <a href="/security/viewProfile.html"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()?></a>
@@ -41,8 +44,8 @@
                         }
                         else{
                             ?>
-                            <a href="./view/security/login.php">Connexion</a>
-                            <a href="view/security/register.php">Inscription</a>
+                            <a href="index.php?ctrl=security&action=loginForm">Connexion</a>
+                            <a href="index.php?ctrl=security&action=registerForm">Inscription</a>
                         <?php
                         }
                    

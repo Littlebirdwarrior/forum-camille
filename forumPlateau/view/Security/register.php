@@ -27,7 +27,7 @@
         </p>
  
         <p>
-            <input class="button" type="submit" value="Je m'inscris" name="submit" />
+            <input class="button" type="submit" value="Je m'inscris" name="submitRegister" />
         </p>
     </form> 
 
