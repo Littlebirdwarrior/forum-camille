@@ -38,10 +38,10 @@ $categoryId = $_GET['id'];
                     //je recupère le lock (1 ou 0) et je gère l'affichage en conséquance
                     $lock = $topic->getLock();
                     //Si lock est true (== 1) ?(if) le a affiche déverouillé :(else) le a affiche verouillé
-                    $btnLock = ($lock)?
-                        '<a class="button variant" href="index.php?ctrl=forum&action=unlockTopic&id=' . $topic->getId() . '>">Dévrouillé</a>'
+                    $btnLock = ($lock) ?
+                        '<a class="button variant" href="index.php?ctrl=forum&action=unlockTopic&id=' . $topic->getId() . '"> Devrouillé </a>'
                         :
-                        '<a class="button variant" href="index.php?ctrl=forum&action=lockTopic&id=' . $topic->getId() . '">Verouiller</a>';
+                        '<a class="button variant" href="index.php?ctrl=forum&action=lockTopic&id=' . $topic->getId() . '"> Verouiller </a>';
                     //if($lock == 1){ $msg = "lock"} else {$msg = "lock-open"}
                     $msg = ($lock)  ? 'lock' : 'lock-open';
             ?>

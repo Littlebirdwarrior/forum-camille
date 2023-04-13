@@ -28,4 +28,9 @@ http://localhost/index.php?ctrl=forum&action=deleteTopic&id=21
                             else 
                             { ?>
                                 <i class="fa-solid fa-lock-open"></i>
-                            <?php }
+                            <?php }?>
+
+
+http://localhost/camille/forum-camille/forumPlateau/index.php?ctrl=forum&action=unlockTopic&id=1
+
+http://localhost/camille/forum-camille/forumPlateau/index.php?ctrl=forum&action=unlockTopic&id=3

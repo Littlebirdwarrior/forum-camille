@@ -56,7 +56,6 @@ class TopicManager extends Manager
         $sql = "UPDATE " . $this->tableName . " t
              SET t.lock = 0 
              WHERE t.id_" . $this->tableName . " = :id";
-
         return DAO::update($sql, ['id' => $id]);
     }
 
