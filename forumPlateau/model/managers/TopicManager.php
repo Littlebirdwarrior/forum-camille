@@ -20,7 +20,7 @@
         public function fetchTopicsByCat($id)
         {
 
-            $sql = "SELECT id_topic, title, t.publishDate, t.user_id,
+            $sql = "SELECT id_topic, title, t.publishDate, t.user_id, t.lock,
                             COUNT(p.topic_id) as nbPosts
                     FROM ".$this->tableName." t
                     LEFT JOIN post p ON p.topic_id = t.id_".$this->tableName."
@@ -34,6 +34,8 @@
                     $this->className
             );   
         }
+
+        //Lock et unlock un topic
 
         //Update le titre d'une categorie 
         public function updateTopicInDB($id, $title)
@@ -55,5 +57,8 @@
         }
         
         //(dans DAO, 'id_topic' s'appelle id pour la methode update et delete dans Manager.php)
+
+        
+
 
     }
