@@ -3,7 +3,7 @@
 
 <form method="post">
     <!--------action="index.php?ctrl=forum&action=updatePost&id=<?=$postId?>"--------->
-        <h2>Inscrivez vius</h2>
+        <h2>Inscrivez-vous</h2>
         <!---------------------->
         <p>
             <label for="userName">Votre pseudo</label>
