@@ -1,8 +1,8 @@
 
 <div>
 
-<form method="post">
-    <!--------action="index.php?ctrl=forum&action=updatePost&id=<?=$postId?>"--------->
+<form action="index.php?ctrl=security&action=register" method="post">
+    <!----------------->
         <h2>Inscrivez-vous</h2>
         <!---------------------->
         <p>

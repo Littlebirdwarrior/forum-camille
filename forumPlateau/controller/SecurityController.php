@@ -93,21 +93,30 @@
                                         //hashage du mot de passe source : https://www.php.net/manual/en/function.password-hash.php*/
                                         $passwordHash = password_hash($password,PASSWORD_DEFAULT);
 
-                                        try {  
+                                        if($passwordHash){  
                                         //ajout en base de données
                                         $userManager->add(["userName"=>$userName,"email"=>$email,"password"=>$passwordHash]);
                                         Session::addFlash("Success", "User added");
-                                        } catch (\Exception $e) {
-                                            $_SESSION["error"] = "Cet utilisateur n'a pas été ajouté";
+                                        } else {
+                                            echo "Cet utilisateur n'a pas été ajouté";
                                         }
                                         
                                         //redirection
                                         $this->redirectTo("security","login");
                                     }
+                                    else {
+                                        echo "les passwords ne correspondent pas";
+                                    }
+                                } else {
+                                    echo "le mot de passe et sa confirmation ne matche pas";
                                 }
+                            } else {
+                                echo "le mot de passe et sa confirmation ne matche pas";
                             }
 
-                    }             
+                    } else {
+                        echo "les champs ne sont pas remplis";
+                    }            
              
                 
                     //affichage dans ma views
@@ -117,12 +126,11 @@
                         ];
             
                 }
-        
-        
 
         }
-        //*LOGIN 
         
+        //*LOGIN 
+
 
         //*DECONNEXION
 
