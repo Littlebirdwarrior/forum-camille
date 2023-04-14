@@ -22,7 +22,7 @@
             <input type="text" name="password" placeholder="198+%DFR" maxlength="225" required/>
         </p>
         <p>
-            <label for="passwordConfirm">Confirmer votre mot de passe</label>
+            <label for="password_confirmation">Confirmer votre mot de passe</label>
             <input  type="text" name="passwordConfirm" placeholder="198+%DFR"  maxlength="225" required/>
         </p>
  

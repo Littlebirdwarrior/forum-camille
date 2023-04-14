@@ -62,7 +62,9 @@
         //*REGISTER Add user 
          public function register()
         {
+            
             $userManager = new UserManager();
+            
 
                 //Si submit Register.php
                 if(isset($_POST['submitRegister']))
@@ -73,38 +75,39 @@
                     $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
                     $password= filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                     $passwordConfirm= filter_input(INPUT_POST, 'passwordConfirm', FILTER_SANITIZE_FULL_SPECIAL_CHARS);  
-
+                    
+                    //role par defaut
+                    $role = 'user';
 
                     //si les champs sont remplis et filtré
                     if($userName && $email && $password &&$passwordConfirm)
                     {
+                        
                         //si le mail n'existe pas en BDD
                             if(!$userManager->fetchUserByEmail($email))
                             {
-
+                                
                                 //Si le mot de passe correspond à sa confirmation
                                 if(!$userManager->fetchUserByName($userName))
                                 {
 
                                     //si le password et le passwordConfirm correspondent
-                                    if($password == $passwordConfirm)
+                                    if($password = $passwordConfirm)
                                     {
-
                                         //hashage du mot de passe source : https://www.php.net/manual/en/function.password-hash.php*/
                                         $passwordHash = password_hash($password,PASSWORD_DEFAULT);
 
-                                        if($passwordHash){  
+                                        try {  
                                         //ajout en base de données
-                                        $userManager->add(["userName"=>$userName,"email"=>$email,"password"=>$passwordHash]);
+                                        $userManager->add(["userName"=>$userName,"email"=>$email,"password"=>$passwordHash,"role" => $role]);
                                         Session::addFlash("Success", "User added");
-                                        } else {
-                                            echo "Cet utilisateur n'a pas été ajouté";
+                                        } catch (\Exception $e) { 
+                                           $e = "Cet utilisateur n'a pas été ajouté";
                                         }
                                         
                                         //redirection
-                                        $this->redirectTo("security","login");
-                                    }
-                                    else {
+                                        //$this->redirectTo("security","login");
+                                    } else {
                                         echo "les passwords ne correspondent pas";
                                     }
                                 } else {
@@ -128,7 +131,7 @@
                 }
 
         }
-        
+
         //*LOGIN 
 
 
