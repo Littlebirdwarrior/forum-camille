@@ -78,5 +78,13 @@ final class User extends Entity {
         $this -> firstLoginDate = $firstLoginDate;
     }
 
+    public  function hasRole() {
+        return $this -> role;
+    }
+
+    public function __toString(){
+        return $this-> userName;
+    }
+
 
 }

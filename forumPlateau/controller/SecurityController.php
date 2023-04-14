@@ -33,17 +33,17 @@
         }
         //*! ne marche pas 
         //lister les users
-        public function listUsers()
-        {
-            $userManager = new UserManager();
+        // public function listUsers()
+        // {
+        //     $userManager = new UserManager();
 
-            return [
-                "view" => VIEW_DIR . "security/users.php",
-                "data" => [
-                    "users" => $userManager->findAll(["userName", "DESC"])
-                ]
-            ];
-        }
+        //     return [
+        //         "view" => VIEW_DIR . "security/users.php",
+        //         "data" => [
+        //             "users" => $userManager->findAll(["userName", "DESC"])
+        //         ]
+        //     ];
+        // }
 
         //trouver un user par son id
         public function userById($id)
@@ -142,12 +142,8 @@
         //*LOGIN 
 
         public function login()
-        {
-            
-            
+        {  
             $userManager = new UserManager();
-
-            
 
                 //Si submit Register.php
                 if(isset($_POST['submitLogin']))
@@ -178,17 +174,14 @@
                                         //connexion
                                         Session::setUser($user);
                                         Session::addFlash("Success", "Login successful");
-                                        echo "connexion reussie";  
-                                        
-                                        //Le message d'erreur
-                                        throw new \Exception("Connexion impossible");
+
                                         } catch (\Exception $e) { 
                                            echo $e->getMessage();
                                            Session::addFlash("Error", $e->getMessage());
                                         }
                                         
                                         //redirection
-                                        //$this->redirectTo("security","login");
+                                        //$this->redirectTo("security","viewProfile");
 
                                     } else {
                                         echo "Mot de passe incorrect";
@@ -215,8 +208,26 @@
 
 
         //*DECONNEXION
+        //! a tester
+        public function logout(){
+            echo "test";
+            $user = null;
+            Session::setUser($user);
+            var_dump($_SESSION);
+        }
 
-        //*Afficher le profil
+        //*Afficher le profil viewProfile
+
+        public function viewProfile($id)
+        {
+            $user = Session::getUser();
+            $userId = $user->getId();
+            
+            return [
+                "view" => VIEW_DIR . "security/viewProfile.php",
+                "data" => [ "user" => $user]
+                ];
+        }
 
     //fin de la fonction
     }

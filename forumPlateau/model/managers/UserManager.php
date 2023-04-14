@@ -16,6 +16,7 @@
         }
 
         //lister les user-> find All
+        
 
         //fetch un utilisateur par son id -> findOneById($id)
 
@@ -28,8 +29,8 @@
             WHERE u.email = :email
             ";
         
-        return $this -> getMultipleResults(
-            DAO::select($sql, ['email' => $email]),
+        return $this -> getOneorNullResult(
+            DAO::select($sql, ['email' => $email], false),
             $this->className
             );
         }
@@ -57,7 +58,6 @@
                 $this->className
             );
         }
-
 
         //retrouver seulement un password à partir d'un en BDD
 		public function retrievePasswordByEmail($email){
