@@ -9,7 +9,8 @@
     use Model\Managers\TopicManager;
     use Model\Managers\PostManager;
     
-    class HomeController extends AbstractController implements ControllerInterface{
+    class HomeController extends AbstractController implements ControllerInterface 
+    {
 
         //*Affichage
         //permet afficher le formulaire de connexion dès l'index
@@ -59,59 +60,69 @@
         }
 
         //*REGISTER Add user 
-         public function register(){
+         public function register()
+        {
             $userManager = new UserManager();
 
-            //Si submit Register.php
-            if(isset($_POST['submitRegister'])){
+                //Si submit Register.php
+                if(isset($_POST['submitRegister']))
+                {
 
-                //je filtre mes données
-                $userName= filter_input(INPUT_POST, 'userName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
-                $password= filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $passwordConfirm= filter_input(INPUT_POST, 'passwordConfirm', FILTER_SANITIZE_FULL_SPECIAL_CHARS);  
+                    //je filtre mes données
+                    $userName= filter_input(INPUT_POST, 'userName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
+                    $password= filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $passwordConfirm= filter_input(INPUT_POST, 'passwordConfirm', FILTER_SANITIZE_FULL_SPECIAL_CHARS);  
 
 
-                //si les champs sont remplis et filtré
-                if($userName && $email && $password &&$passwordConfirm){
-                    //si le mail n'existe pas en BDD
-                        if(!$userManager->fetchUserByEmail($email)){
+                    //si les champs sont remplis et filtré
+                    if($userName && $email && $password &&$passwordConfirm)
+                    {
+                        //si le mail n'existe pas en BDD
+                            if(!$userManager->fetchUserByEmail($email))
+                            {
 
-                            //Si le mot de passe correspond à sa confirmation
-                            if(!userManager->fetchUserByName($userName)){
+                                //Si le mot de passe correspond à sa confirmation
+                                if(!$userManager->fetchUserByName($userName))
+                                {
 
-                                //si le password et le passwordConfirm correspondent
-                                if($password == $passwordConfirm){
+                                    //si le password et le passwordConfirm correspondent
+                                    if($password == $passwordConfirm)
+                                    {
 
-                                    //hashage du mot de passe source : https://www.php.net/manual/en/function.password-hash.php*/
-                                    $passwordHash = password_hash($password,PASSWORD_DEFAULT);
+                                        //hashage du mot de passe source : https://www.php.net/manual/en/function.password-hash.php*/
+                                        $passwordHash = password_hash($password,PASSWORD_DEFAULT);
 
-                                    try {  
-                                    //ajout en base de données
-                                    $userManager->add(["userName"=>$userName,"email"=>$email,"password"=>$passwordHash]);
-                                    Session::addFlash("Success", "User added");
-                                    } catch (\Exception $e) {
-                                        $_SESSION["error"] = "Cet utilisateur n'a pas été ajouté";
+                                        try {  
+                                        //ajout en base de données
+                                        $userManager->add(["userName"=>$userName,"email"=>$email,"password"=>$passwordHash]);
+                                        Session::addFlash("Success", "User added");
+                                        } catch (\Exception $e) {
+                                            $_SESSION["error"] = "Cet utilisateur n'a pas été ajouté";
+                                        }
+                                        
+                                        //redirection
+                                        $this->redirectTo("security","login");
                                     }
-                                    
-                                    //redirection
-                                    $this->redirectTo("security","login");
                                 }
+                            }
 
-                        }
+                    }             
              
-            } 
+                
+                    //affichage dans ma views
+                    return [
+                        "view" => VIEW_DIR . "security/register.php",
+                        "data" => []
+                        ];
             
-            //ma views
-            return [
-                "view" => VIEW_DIR . "security/register.php",
-                "data" => []
-            ];
-         }
+                }
+        
+        
+
         }
-
-
         //*LOGIN 
+        
 
         //*DECONNEXION
 
