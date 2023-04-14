@@ -1,8 +1,8 @@
 
 <div>
 
-<form method="post">
-    <!--------action="index.php?ctrl=forum&action=updatePost&id=<?=$postId?>"--------->
+<form action="index.php?ctrl=security&action=login" method="post"> 
+    <!----------------->
         <h2>Connectez vous</h2>
         <!---------------------->   
         <p>
@@ -15,11 +15,11 @@
         </p> -->
         <p>
             <label for="password">Mot de passe</label>
-            <input type="text" name="submit" placeholder="198+%DFR" maxlength="225" required/>
+            <input type="text" name="password" placeholder="198+%DFR" maxlength="225" required/>
         </p>
  
         <p>
-            <input class="button" type="submit" value="Connexion" name="submit" />
+            <input class="button" type="submit" value="Connexion" name="submitLogin" />
         </p>
     </form> 
 

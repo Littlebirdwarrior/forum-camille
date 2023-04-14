@@ -144,47 +144,41 @@
         public function login()
         {
             
+            
             $userManager = new UserManager();
+
             
 
                 //Si submit Register.php
                 if(isset($_POST['submitLogin']))
                 {
-
+                    
                     //je filtre mes données
                     $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
                     $password= filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                    
-                    //role par defaut
-                    $role = 'user';
 
                     //si les champs sont remplis et filtré
                     if( $email && $password)
                     {
-                        //chercher l'email dans la BDD (bool)
+                        //retrouver le password dans la BDD à partir de l'email (renvois un t.a)
                         $existInDB = $userManager->retrievePasswordByEmail($email);
 
-                        //si le mail n'existe pas en BDD
+                        //si le mail n'existe pas en BDD (si cela ne renvois pas null) source : https://apcpedagogie.com/les-methodes-de-cryptage-en-php/
                             if ($existInDB)
                             {
-                                //Je retrouve mon user
-                                $user = $userManager->fetchUserByEmail($email);
-
-                                //je charge le pasword encrypté en BDD
-                                $passwordBDD = $user->getPassword();
-                               
-                                //j'encrypte le pawword rentré en input 
-                                $passwordHash = password_hash($password,PASSWORD_DEFAULT);
-
+                                //je recupère le password encodé dans la BDD 
+                                $hash = $existInDB->getPassword();
+                                    
                                     //si le password et celui de la bdd corresponde
-                                    if(password_verify ($passwordHash, $passwordBDD))
+                                    if(password_verify($password, $hash))
                                     {
+                                        $user = $userManager->fetchUserByEmail($email);
                                         
                                         try { 
-                                        echo "connexion reussie";     
                                         //connexion
                                         Session::setUser($user);
                                         Session::addFlash("Success", "Login successful");
+                                        echo "connexion reussie";  
                                         
                                         //Le message d'erreur
                                         throw new \Exception("Connexion impossible");

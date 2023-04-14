@@ -46,7 +46,20 @@
                 $this->className);
         }
 
-        //retrouver seulement un email en BDD
+        //retrouver un email en BDD
+        public function retrieveEmail($email){
+            $sql = "SELECT u.email
+            FROM ".$this->tableName." u
+            WHERE email = :email";
+
+            return $this->getOneOrNullResult(
+                DAO::select($sql, ['email' => $email], false), 
+                $this->className
+            );
+        }
+
+
+        //retrouver seulement un password à partir d'un en BDD
 		public function retrievePasswordByEmail($email){
             $sql = "SELECT u.password
             FROM ".$this->tableName." u
