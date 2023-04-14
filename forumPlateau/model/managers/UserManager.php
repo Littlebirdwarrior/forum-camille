@@ -42,18 +42,18 @@
             WHERE userName = :userName";
 
             return $this->getOneorNullResult(
-                DAO::select($sql, ['userName' => $userName] ,false),
+                DAO::select($sql, ['userName' => $userName], false),
                 $this->className);
         }
 
-        //retrouver 
-		public function fetchPassword($passInDB){
-            $sql = "SELECT *
-            FROM ".$this->tableName."
-            WHERE email = :passInDB";
+        //retrouver seulement un email en BDD
+		public function retrievePasswordByEmail($email){
+            $sql = "SELECT u.password
+            FROM ".$this->tableName." u
+            WHERE email = :email";
 
             return $this->getOneOrNullResult(
-                DAO::select($sql, ['passInDB' => $passInDB], false), 
+                DAO::select($sql, ['email' => $email], false), 
                 $this->className
             );
         }

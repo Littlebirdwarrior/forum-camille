@@ -128,7 +128,7 @@ class ForumController extends AbstractController implements ControllerInterface
         // if($_SESSION['user']){
         //Je recupère mon id user et mon id cat
         // $user_id = $_SESSION['user']->getId();
-        $user_id = 2; //*!a modifier
+        $user_id = 43; //*!a modifier
 
         if (isset($_POST['submit'])) {
             //var_dump ici ne marche pas
@@ -175,7 +175,7 @@ class ForumController extends AbstractController implements ControllerInterface
         // if($_SESSION['user']){
         //Je recupère mon id user et mon id cat
         // $user_id = $_SESSION['user']->getId();
-        $user_id = 2; //*!a modifier lors de la creation des connexions
+        $user_id = 43; //*!a modifier lors de la creation des connexions
 
         if (isset($_POST['submit'])) {
             //var_dump ici ne marche pas

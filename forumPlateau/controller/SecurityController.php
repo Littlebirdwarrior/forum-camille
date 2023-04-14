@@ -83,6 +83,7 @@
                     if($userName && $email && $password &&$passwordConfirm)
                     {
                         
+                        
                         //si le mail n'existe pas en BDD
                             if(!$userManager->fetchUserByEmail($email))
                             {
@@ -102,12 +103,16 @@
                                         //ajout en base de données
                                         $userManager->add(["userName"=>$userName,"email"=>$email,"password"=>$passwordHash,"role" => $role]);
                                         Session::addFlash("Success", "User added");
+                                        //Le message d'erreur
+                                        throw new \Exception("L'utilisateur n'a pas été enregistré");
                                         } catch (\Exception $e) { 
-                                           $e = "Cet utilisateur n'a pas été ajouté";
+                                           echo $e->getMessage();
+                                           Session::addFlash("Error", $e->getMessage());
                                         }
                                         
                                         //redirection
                                         //$this->redirectTo("security","login");
+
                                     } else {
                                         echo "les passwords ne correspondent pas";
                                     }
@@ -115,12 +120,13 @@
                                     echo "le mot de passe et sa confirmation ne matche pas";
                                 }
                             } else {
-                                echo "le mot de passe et sa confirmation ne matche pas";
+                                echo "l'email est déja en bdd";
                             }
 
-                    } else {
-                        echo "les champs ne sont pas remplis";
-                    }            
+                    } else  { 
+                        //Le message d'erreur
+                        echo ("les champs ne sont pas remplis");
+                     }
              
                 
                     //affichage dans ma views
@@ -134,6 +140,84 @@
         }
 
         //*LOGIN 
+
+        public function login()
+        {
+            
+            $userManager = new UserManager();
+            
+
+                //Si submit Register.php
+                if(isset($_POST['submitLogin']))
+                {
+
+                    //je filtre mes données
+                    $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
+                    $password= filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    
+                    //role par defaut
+                    $role = 'user';
+
+                    //si les champs sont remplis et filtré
+                    if( $email && $password)
+                    {
+                        //chercher l'email dans la BDD (bool)
+                        $existInDB = $userManager->retrievePasswordByEmail($email);
+
+                        //si le mail n'existe pas en BDD
+                            if ($existInDB)
+                            {
+                                //Je retrouve mon user
+                                $user = $userManager->fetchUserByEmail($email);
+
+                                //je charge le pasword encrypté en BDD
+                                $passwordBDD = $user->getPassword();
+                               
+                                //j'encrypte le pawword rentré en input 
+                                $passwordHash = password_hash($password,PASSWORD_DEFAULT);
+
+                                    //si le password et celui de la bdd corresponde
+                                    if(password_verify ($passwordHash, $passwordBDD))
+                                    {
+                                        
+                                        try { 
+                                        echo "connexion reussie";     
+                                        //connexion
+                                        Session::setUser($user);
+                                        Session::addFlash("Success", "Login successful");
+                                        
+                                        //Le message d'erreur
+                                        throw new \Exception("Connexion impossible");
+                                        } catch (\Exception $e) { 
+                                           echo $e->getMessage();
+                                           Session::addFlash("Error", $e->getMessage());
+                                        }
+                                        
+                                        //redirection
+                                        //$this->redirectTo("security","login");
+
+                                    } else {
+                                        echo "Mot de passe incorrect";
+                                    }
+                                
+                            } else {
+                                echo "Vous n'avez pas encore de compte ! <br> Enregistez votre profil";
+                            }
+
+                    } else  { 
+                        //Le message d'erreur
+                        echo ("les champs ne sont pas remplis");
+                     }
+             
+                
+                    //affichage dans ma views
+                    return [
+                        "view" => VIEW_DIR . "security/login.php",
+                        "data" => []
+                        ];
+            
+                }
+        }
 
 
         //*DECONNEXION

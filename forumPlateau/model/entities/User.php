@@ -7,7 +7,9 @@ use App\Entity;
 final class User extends Entity {
 
     private $id;
+    private $role;
     private $userName;
+    
     private $email;
     private $password;
     private $firstLoginDate;
@@ -24,6 +26,16 @@ final class User extends Entity {
 
     public function setId($id) {
          $this -> id = $id;
+    }
+
+    //* id
+
+    public function getRole() {
+        return $this ->role;
+    }
+
+    public function setRole($role) {
+         $this -> role = $role;
     }
 
     //* userName
