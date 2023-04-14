@@ -15,11 +15,11 @@
         </p>
         <!-- <p>
             <label for="emailConfirm"></label>
-            <input type="email"  name="submit" placeholder="dogfan@yopmail.com"/>
+            <input type="email"  name="emailConfirm" placeholder="dogfan@yopmail.com"/>
         </p> -->
         <p>
             <label for="password">Mot de passe</label>
-            <input type="text" name="submit" placeholder="198+%DFR" maxlength="225" required/>
+            <input type="text" name="password" placeholder="198+%DFR" maxlength="225" required/>
         </p>
         <p>
             <label for="passwordConfirm">Confirmer votre mot de passe</label>

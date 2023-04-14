@@ -62,25 +62,53 @@
          public function register(){
             $userManager = new UserManager();
 
-            //je filtre mes données
-            if(isset($_POST['submitRegister'])){
-                
-
-            }
-
             //Si submit Register.php
+            if(isset($_POST['submitRegister'])){
 
-            //si le mail n'existe pas en BDD
+                //je filtre mes données
+                $userName= filter_input(INPUT_POST, 'userName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
+                $password= filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $passwordConfirm= filter_input(INPUT_POST, 'passwordConfirm', FILTER_SANITIZE_FULL_SPECIAL_CHARS);  
 
-            //Si le mot de passe correspond à sa confirmation
 
-            //J'encrypte mon mot de passe avec password_hash() 
-            //source : https://www.php.net/manual/en/function.password-hash.php
+                //si les champs sont remplis et filtré
+                if($userName && $email && $password &&$passwordConfirm){
+                    //si le mail n'existe pas en BDD
+                        if(!$userManager->fetchUserByEmail($email)){
 
-            //j'execute la requete addUser
+                            //Si le mot de passe correspond à sa confirmation
+                            if(!userManager->fetchUserByName($userName)){
 
-            //je redirige vers mon login
+                                //si le password et le passwordConfirm correspondent
+                                if($password == $passwordConfirm){
+
+                                    //hashage du mot de passe source : https://www.php.net/manual/en/function.password-hash.php*/
+                                    $passwordHash = password_hash($password,PASSWORD_DEFAULT);
+
+                                    try {  
+                                    //ajout en base de données
+                                    $userManager->add(["userName"=>$userName,"email"=>$email,"password"=>$passwordHash]);
+                                    Session::addFlash("Success", "User added");
+                                    } catch (\Exception $e) {
+                                        $_SESSION["error"] = "Cet utilisateur n'a pas été ajouté";
+                                    }
+                                    
+                                    //redirection
+                                    $this->redirectTo("security","login");
+                                }
+
+                        }
+             
+            } 
+            
+            //ma views
+            return [
+                "view" => VIEW_DIR . "security/register.php",
+                "data" => []
+            ];
          }
+        }
 
 
         //*LOGIN 
