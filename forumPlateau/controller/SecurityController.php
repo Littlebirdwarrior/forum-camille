@@ -92,8 +92,9 @@
                                 {
 
                                     //si le password et le passwordConfirm correspondent
-                                    if($password = $passwordConfirm)
+                                    if($password == $passwordConfirm)
                                     {
+                                        
                                         //hashage du mot de passe source : https://www.php.net/manual/en/function.password-hash.php*/
                                         $passwordHash = password_hash($password,PASSWORD_DEFAULT);
 
