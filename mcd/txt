@@ -34,3 +34,7 @@ http://localhost/index.php?ctrl=forum&action=deleteTopic&id=21
 http://localhost/camille/forum-camille/forumPlateau/index.php?ctrl=forum&action=unlockTopic&id=1
 
 http://localhost/camille/forum-camille/forumPlateau/index.php?ctrl=forum&action=unlockTopic&id=3
+
+http://localhost/index.php?ctrl=security&action=login
+
+index.php?ctrl=security&action=loginForm

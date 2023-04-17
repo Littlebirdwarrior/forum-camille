@@ -103,15 +103,12 @@
                                         //ajout en base de données
                                         $userManager->add(["userName"=>$userName,"email"=>$email,"password"=>$passwordHash,"role" => $role]);
                                         Session::addFlash("Success", "User added");
-                                        //Le message d'erreur
-                                        throw new \Exception("L'utilisateur n'a pas été enregistré");
                                         } catch (\Exception $e) { 
-                                           echo $e->getMessage();
-                                           Session::addFlash("Error", $e->getMessage());
+                                           Session::addFlash("Error","L'utilisateur n'a pas été enregistré");
                                         }
                                         
                                         //redirection
-                                        //$this->redirectTo("security","login");
+                                        $this->redirectTo("security","loginForm");
 
                                     } else {
                                         echo "les passwords ne correspondent pas";
@@ -181,7 +178,7 @@
                                         }
                                         
                                         //redirection
-                                        //$this->redirectTo("security","viewProfile");
+                                        $this->redirectTo("security","viewProfile");
 
                                     } else {
                                         echo "Mot de passe incorrect";
@@ -208,12 +205,15 @@
 
 
         //*DECONNEXION
-        //! a tester
         public function logout(){
-            echo "test";
             $user = null;
             Session::setUser($user);
-            var_dump($_SESSION);
+
+             //affichage dans ma views
+             return [
+                "view" => VIEW_DIR . "security/login.php",
+                "data" => []
+                ];
         }
 
         //*Afficher le profil viewProfile
