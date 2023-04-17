@@ -219,7 +219,8 @@ class ForumController extends AbstractController implements ControllerInterface
         $title = $topicManager->findOneById($id)->getTitle();
 
         //---modifier le topic
-        if (isset($_POST['submit'])) {
+        if (isset($_POST['submit'])) 
+        {
             $title = filter_input(INPUT_POST, "topicTitle", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             try {
@@ -234,7 +235,7 @@ class ForumController extends AbstractController implements ControllerInterface
             $this->redirectTo("forum", "listTopicsByCat", $category_id);
         }
 
-        //---redirection vers le form
+        //---affichage du form
         return [
             "view" => VIEW_DIR . "forum/updateTopic.php",
             "data" => [

@@ -44,7 +44,7 @@ $users = $result["data"]["users"];
                             <option value="<?=$statut?>"> Administrateur</option> 
                             <option value="<?=$statut?>"> Bloquer </option> 
                         </select>
-                        <input class="button variant" type="submitRole" name="submitRole" value="Mettre à jour"/>
+                        <input class="button variant" type="submit" name="submitRole" value="Mettre à jour"/>
                     </form>
                 </td>
             </tr>

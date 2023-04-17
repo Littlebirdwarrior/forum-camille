@@ -71,4 +71,14 @@
             );
         }
 
+        //Update role d'un user
+        public function updateRoleInDB($role, $id)
+        {
+            $sql = "UPDATE ".$this->tableName." u
+            SET u.role = :role 
+            WHERE u.id_".$this->tableName." = :id";
+            
+            DAO::update($sql, ['role' => $role, 'id' => $id]);
+        }
+
     }

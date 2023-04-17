@@ -78,9 +78,14 @@ final class User extends Entity {
         $this -> firstLoginDate = $firstLoginDate;
     }
 
-    public  function hasRole() {
+    //*Role (set existe deja dans le manager)
+
+    public function hasRole() {
         return $this -> role;
     }
+
+
+    //*To_string
 
     public function __toString(){
         return $this-> userName;

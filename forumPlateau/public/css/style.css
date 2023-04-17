@@ -229,7 +229,6 @@ justify-content: flex-end;
   font-size: 0.8rem;
   padding: 0.5rem 1rem;
   border: none;
-  max-width: 100px;
 }
 
 .button:hover {

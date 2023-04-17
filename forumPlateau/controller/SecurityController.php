@@ -230,10 +230,30 @@
         }
 
         //*Update role
-
         public function updateRole($id)
         {
+            echo "test"; die;
+            $userManager = new UserManager;
+            $role = $userManager->findOneById($id)->hasRole();
+
+            //-----Modifier le role d'un user
+            if (isset($Post['submitRole'])) 
+            {
+                try {
+                    $userManager->updateRoleInDB($role, intval($id));
+                } catch (\Exception $e){
+                    $_SESSION["error"] = "Ce role n'a pas été modifié";
+                }
+                //redirection
+                //$this->redirectTo("security", "users");
+            }
             
+        //---affichage de la view
+        return [
+            "view" => VIEW_DIR . "security/users.php",
+            "data" => []
+        ];
+
         }
         
 
