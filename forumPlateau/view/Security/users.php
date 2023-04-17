@@ -15,7 +15,8 @@ $users = $result["data"]["users"];
                     <th>Changer le statut</th>
                 </tr>
             </thead>
-            </thead>
+            </tbody>
+            <!---------------->
             <?php foreach($users as $user){ 
                 $userId = $user->getId();;
                 ?>
@@ -34,9 +35,10 @@ $users = $result["data"]["users"];
                     </select>
                 </td>
             </tr>
-        </table>
+            <?php }?>
+            
+            </tbody>
+    </table>
 
-    <?php
-    }?>
 
 </div>
