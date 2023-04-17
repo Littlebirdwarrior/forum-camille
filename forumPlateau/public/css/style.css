@@ -228,6 +228,13 @@ justify-content: flex-end;
   height: fit-content;
   font-size: 0.8rem;
   padding: 0.5rem 1rem;
+  border: none;
+  max-width: 100px;
+}
+
+.button:hover {
+  background : #f72d12;
+  color: #fff;
 }
 
 input[type="submit"] i {
@@ -271,4 +278,16 @@ form > div textarea {
   width: 100%;
   margin-top: 0.5rem;
   height: 150px;
+}
+
+.updateRoleForm {
+  margin : 0;
+  padding: 0;
+  border: none;
+}
+
+.updateRoleForm select {
+  min-width: 60%;
+  height: 35px;
+  margin-right: 10px;
 }

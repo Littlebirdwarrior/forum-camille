@@ -11,7 +11,6 @@ $users = $result["data"]["users"];
                 <tr>
                     <th>Pseudo</th>
                     <th>Email</th>
-                    <th>Role</th>
                     <th>Changer le statut</th>
                 </tr>
             </thead>
@@ -32,16 +31,21 @@ $users = $result["data"]["users"];
                 ?>
             
             <tr>
-                <td><a href="index.php?ctrl=security&action=viewProfile&id=<?=$userId?>"><?=$user->getUserName()?></a></td>
-                <td><?=$user->getEmail()?></td>
-                <td><a><?=$frenchStatut?></a></td>
                 <td>
-                    <select name="changeStatut">
-                        <option disabled selected value>Changer le statut</option>
-                        <option value="<?=$statut?>"> Utilisateur </option>
-                        <option value="<?=$statut?>"> Administrateur</option> 
-                        <option value="<?=$statut?>"> Bloquer </option> 
-                    </select>
+                    <h3><a href="index.php?ctrl=security&action=viewProfile&id=<?=$userId?>"><?=$user->getUserName()?></a></h3>
+                    <span><?=$frenchStatut?></span>
+                </td>
+                <td><?=$user->getEmail()?></td>
+                <td>
+                    <form class="updateRoleForm" action="index.php?ctrl=forum&action=updateRole&id=<?=$userId?>" method="post">
+                        <select name="changeRole">
+                            <option disabled selected value>Changer le statut</option>
+                            <option value="<?=$statut?>"> Utilisateur </option>
+                            <option value="<?=$statut?>"> Administrateur</option> 
+                            <option value="<?=$statut?>"> Bloquer </option> 
+                        </select>
+                        <input class="button variant" type="submitRole" name="submitRole" value="Mettre à jour"/>
+                    </form>
                 </td>
             </tr>
             <?php }?>

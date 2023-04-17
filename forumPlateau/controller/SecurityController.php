@@ -231,6 +231,10 @@
 
         //*Update role
 
+        public function updateRole($id)
+        {
+            
+        }
         
 
     //fin de la fonction
