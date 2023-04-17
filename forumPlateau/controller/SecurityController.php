@@ -31,19 +31,6 @@
                 "data" => []
             ];
         }
-        //*! ne marche pas 
-        //lister les users
-        // public function listUsers()
-        // {
-        //     $userManager = new UserManager();
-
-        //     return [
-        //         "view" => VIEW_DIR . "security/users.php",
-        //         "data" => [
-        //             "users" => $userManager->findAll(["userName", "DESC"])
-        //         ]
-        //     ];
-        // }
 
         //trouver un user par son id
         public function userById($id)
@@ -232,26 +219,28 @@
         //*Update role
         public function updateRole($id)
         {
-            echo "test"; die;
             $userManager = new UserManager;
-            $role = $userManager->findOneById($id)->hasRole();
-
             //-----Modifier le role d'un user
-            if (isset($Post['submitRole'])) 
+            if (isset($_POST['submitRole'])) 
             {
+                $role = filter_input(INPUT_POST, "changeRole", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 try {
                     $userManager->updateRoleInDB($role, intval($id));
                 } catch (\Exception $e){
                     $_SESSION["error"] = "Ce role n'a pas été modifié";
                 }
+
+
                 //redirection
-                //$this->redirectTo("security", "users");
+                $this->redirectTo("home", "users");
             }
-            
+                        
         //---affichage de la view
         return [
-            "view" => VIEW_DIR . "security/users.php",
-            "data" => []
+            "view" => VIEW_DIR . "home/users.php",
+            "data" => [
+                "users" => $userManager->findAll(["userName", "ASC"])
+            ]
         ];
 
         }

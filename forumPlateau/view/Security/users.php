@@ -37,9 +37,8 @@ $users = $result["data"]["users"];
                 </td>
                 <td><?=$user->getEmail()?></td>
                 <td>
-                    <form class="updateRoleForm" action="index.php?ctrl=forum&action=updateRole&id=<?=$userId?>" method="post">
+                    <form class="updateRoleForm" action="index.php?ctrl=security&action=updateRole&id=<?=$userId?>" method="post">
                         <select name="changeRole">
-                            <option disabled selected value>Changer le statut</option>
                             <option value="<?=$statut?>"> Utilisateur </option>
                             <option value="<?=$statut?>"> Administrateur</option> 
                             <option value="<?=$statut?>"> Bloquer </option> 
