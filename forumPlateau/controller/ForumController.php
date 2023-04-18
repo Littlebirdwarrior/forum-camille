@@ -69,44 +69,62 @@ class ForumController extends AbstractController implements ControllerInterface
         //je recupère l'user de mon post
         $idUser = $postManager->findOneById($id)->getUser()->getId();
 
-        if( Session::isAdmin() || ($idUser == Session::getUser()->getId()))
+        if(isset($_SESSION['user']))
         {
-            //je recupere mon texte
-            $text = $postManager->findOneById($id)->getText();
-
-            //----modifier le post
-            if (isset($_POST['submit'])) 
+            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()) && !(Session::isBan()))
             {
-                    //je vide mon post ce charactères dangereux
-                    $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                //je recupere mon texte
+                $text = $postManager->findOneById($id)->getText();
 
-                    try {
-                        //ici, l'id est une string, or, il faut le convertir en int
-                        $postManager->updatePostInDB($text, intval($id));
-                        Session::addFlash("Success", "Post updated");
-                    } catch (\Exception $e) {
-                        $_SESSION["error"] = "Ce message n'a pas été ajouté";
-                    }
+                //----modifier le post
+                if (isset($_POST['submit'])) 
+                {
+                        //je vide mon post ce charactères dangereux
+                        $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                    //Pour la redirection, on charge le topic_id seulement ici (en cas de submit, eviter perte perf)
-                    $topic_id = $postManager->findOneByid($id)->getTopic()->getId();
-                    $this->redirectTo("forum", "listPostsByTopic", $topic_id);
+                        try {
+                            //ici, l'id est une string, or, il faut le convertir en int
+                            $postManager->updatePostInDB($text, intval($id));
+                            Session::addFlash("Success", "Post updated");
+                        } catch (\Exception $e) {
+                            $_SESSION["error"] = "Ce message n'a pas été ajouté";
+                        }
 
-                
+                        //Pour la redirection, on charge le topic_id seulement ici (en cas de submit, eviter perte perf)
+                        $topic_id = $postManager->findOneByid($id)->getTopic()->getId();
+                        $this->redirectTo("forum", "listPostsByTopic", $topic_id);
+
+                    
+                }
+
+                //----diriger vers le form de updatePost et l'afficher (avec le bon id)
+                return [
+                    "view" => VIEW_DIR . "forum/updatePost.php",
+                    "data" => [
+                        "text" => $text
+                    ]
+                ];
+
+            } else {
+                Session::addFlash("Error", "Non authorised user");
+                $_SESSION["error"] = "Vous n'avez pas les authorisations pour changer ce post";
+
+                return [
+                    "view" => VIEW_DIR . "security/ban.php",
+                    "data" => []
+                ];
             }
 
-            //----diriger vers le form de updatePost et l'afficher (avec le bon id)
-            return [
-                "view" => VIEW_DIR . "forum/updatePost.php",
-                "data" => [
-                    "text" => $text
-                ]
-            ];
-
         } else {
-            Session::addFlash("Error", "Non authorised user");
-            $_SESSION["error"] = "Vous n'avez pas les authorisations pour changer ce post";
+            Session::addFlash("Error", "L'utilisateur n'est pas connecté");
+                $_SESSION["error"] = "Vous ne vous êtes pas connecté";
+                return [
+                    "view" => VIEW_DIR . "security/login.php",
+                    "data" => [ ]
+                ];
         }
+
+        
         
     }
 
