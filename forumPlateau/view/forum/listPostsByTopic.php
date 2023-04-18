@@ -41,6 +41,9 @@ if (isset($posts)) {
 
 <!-- ... -->
 
+<?php 
+if (isset($_SESSION["user"])){ ?>
+
 <form action="index.php?ctrl=forum&action=addPost&id=<?= $topicId ?>" method="post"><!----ici, id existe pas encore--->
     <h2>Ajouter un post</h2>
     <div>
@@ -56,4 +59,8 @@ if (isset($posts)) {
         <input class="button variant" type="submit" value="OK" name="submit" />
     </div>
 </form>
+
+<?php 
+}
+?>
 <!-- ... -->

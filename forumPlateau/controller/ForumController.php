@@ -161,6 +161,7 @@ class ForumController extends AbstractController implements ControllerInterface
     }
     //*CRUD TOPIC
 
+    //*!
     //CREATE addTopic : ajouter un topic et un post depuis une categorie préétablis
     public function addTopic($id)
     {
@@ -174,7 +175,7 @@ class ForumController extends AbstractController implements ControllerInterface
         $postManager = new PostManager();
 
         //seulement si l'user est connecté
-        if ($_SESSION['user'] !== null)
+        if ($_SESSION['user'])
         {
             //Je recupère mon id user
             $user_id = $_SESSION['user']->getId();
