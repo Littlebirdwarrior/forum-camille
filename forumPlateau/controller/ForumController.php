@@ -113,7 +113,7 @@ class ForumController extends AbstractController implements ControllerInterface
         $this->redirectTo("forum", "listPostsByTopic", $topic_id);
     }
 
-    //*!
+
     //CREATE addPost : ajouter un post depuis un Topic préétablis 
     public function addPost($id)
     {
@@ -165,7 +165,6 @@ class ForumController extends AbstractController implements ControllerInterface
     }
     //*CRUD TOPIC
 
-    //*!
     //CREATE addTopic : ajouter un topic et un post depuis une categorie préétablis
     public function addTopic($id)
     {
@@ -186,10 +185,6 @@ class ForumController extends AbstractController implements ControllerInterface
 
                 //Je recupère mon id user
                 $user_id = Session::getUser()->getId();
-
-                var_dump($_SESSION['user']->hasRole()); die;
-
-                //if(Session::isAdmin() )
 
                 //*ici, il faut que le champs topic ne soit pas vide
                 if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) {
@@ -310,15 +305,22 @@ class ForumController extends AbstractController implements ControllerInterface
         $topicManager = new TopicManager();
         $topic = $topicManager->findOneById($id);
         $category_id = $topic->getCategory()->getId();
-        try {
 
-            $topicManager->lockTopicInDB($id);
-        } catch (\Exception $e) {
-            $_SESSION["error"] = "Ce topic n'a pas été verouillé";
+        if(Session::isAdmin())
+        {
+            try {
+                $topicManager->lockTopicInDB($id);
+            } catch (\Exception $e) {
+                $_SESSION["error"] = "Ce topic n'a pas été verouillé";
+            }
+
+        } else {
+            $_SESSION["error"] = "vous n'êtes pas administateur";
         }
 
         //Redirection
-        $this->redirectTo("forum", "listTopicsByCat", $category_id);
+        $this->redirectTo("forum", "listTopicsByCat", $category_id); 
+        
     }
 
     public function unlockTopic($id)
@@ -328,10 +330,14 @@ class ForumController extends AbstractController implements ControllerInterface
         $topic = $topicManager->findOneById($id);
         $category_id = $topic->getCategory()->getId();
 
-        try {
-            $topicManager->unlockTopicInDB($id);
-        } catch (\Exception $e) {
-            $_SESSION["error"] = "Ce topic n'a pas été dévrouillé";
+        if(Session::isAdmin()){
+            try {
+                $topicManager->unlockTopicInDB($id);
+            } catch (\Exception $e) {
+                $_SESSION["error"] = "Ce topic n'a pas été dévrouillé";
+            }
+        } else {
+            $_SESSION["error"] = "vous n'êtes pas administateur";
         }
 
         //Redirection
