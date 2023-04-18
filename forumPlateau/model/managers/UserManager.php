@@ -81,4 +81,14 @@
             DAO::update($sql, ['role' => $role, 'id' => $id]);
         }
 
+        //Update le mot de passe d'un user
+        public function updatePasswordInDB($passwordHash, $id)
+        {
+            $sql = "UPDATE ".$this->tableName."
+            SET password = :password 
+            WHERE id_".$this->tableName." = :id";
+
+            DAO::update($sql, ['password' => $passwordHash, 'id' => $id]);
+        }
+
     }

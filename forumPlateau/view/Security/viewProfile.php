@@ -35,6 +35,22 @@ if(isset($user)){
 
     </div>
 
+    <form method="post" action="index.php?ctrl=security&action=updatePassword">
+        <h2>Changer de mot de passe</h2>
+        <p>
+            <label for="password">Mot de passe :</label>
+            <input type="text" name="password" placeholder="198+%DFR" maxlength="225" required/>
+        </p>
+        <p>
+            <label for="password_confirmation">Confirmer votre mot de passe : </label>
+            <input  type="text" name="passwordConfirm" placeholder="198+%DFR"  maxlength="225" required/>
+        </p>
+ 
+        <p>
+            <input class="button variant" type="submit" value="Je change mon mot de passe" name="submitNewPassword" />
+        </p>
+    </form> 
+
 
     
     

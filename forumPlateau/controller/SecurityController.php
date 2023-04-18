@@ -70,12 +70,11 @@
                     if($userName && $email && $password &&$passwordConfirm)
                     {
                         
-                        
-                        //si le mail n'existe pas en BDD
+                        // Vérification si le userName existe déja en BDD
                             if(!$userManager->fetchUserByEmail($email))
                             {
                                 
-                                //Si le mot de passe correspond à sa confirmation
+                                //On recupere le user manager par son nom
                                 if(!$userManager->fetchUserByName($userName))
                                 {
 
@@ -91,26 +90,36 @@
                                         $userManager->add(["userName"=>$userName,"email"=>$email,"password"=>$passwordHash,"role" => $role]);
                                         Session::addFlash("Success", "User added");
                                         } catch (\Exception $e) { 
-                                           Session::addFlash("Error","L'utilisateur n'a pas été enregistré");
+                                           Session::addFlash("Error","user non registered");
+                                           $_SESSION["error"] = "L'utilisateur n'a pas été enregistré";
                                         }
                                         
                                         //redirection
                                         $this->redirectTo("security","loginForm");
 
                                     } else {
-                                        echo "les passwords ne correspondent pas";
+                                        Session::addFlash("Error","password don't match");
+                                        $_SESSION["error"] = "Les passwords ne correspondent pas";
                                     }
                                 } else {
-                                    echo "le mot de passe et sa confirmation ne matche pas";
+                                    Session::addFlash("Error","username already registered");
+                                    $_SESSION["error"] = "Ce pseudo est deja pris";
                                 }
                             } else {
-                                echo "l'email est déja en bdd";
+                                Session::addFlash("Error","email already registered");
+                                $_SESSION["error"] = "Cet email est déjà en enregisté <br> Veuillez-vous connecté";
+
+                                return [
+                                    "view" => VIEW_DIR . "security/login.php",
+                                    "data" => []
+                                    ];
                             }
 
                     } else  { 
                         //Le message d'erreur
-                        echo ("les champs ne sont pas remplis");
-                     }
+                        Session::addFlash("Error","empty input when submit");
+                        $_SESSION["error"] = "Les champs ne sont pas remplis";
+                    }
              
                 
                     //affichage dans ma views
@@ -182,16 +191,24 @@
                                           
 
                                     } else {
-                                        echo "Mot de passe incorrect";
+                                        Session::addFlash("Error", "incorrect password");
+                                        $_SESSION["error"] = "Mot de passe incorrect";
                                     }
                                 
                             } else {
-                                echo "Vous n'avez pas encore de compte ! <br> Enregistez votre profil";
+                                Session::addFlash("Error", "non registered user");
+                                $_SESSION["error"] = "Vous n'avez pas encore de compte ! <br> Enregistez votre profil";
+                                
+                                return [
+                                    "view" => VIEW_DIR . "security/register.php",
+                                    "data" => []
+                                    ];
                             }
 
                     } else  { 
                         //Le message d'erreur
-                        echo ("les champs ne sont pas remplis");
+                        Session::addFlash("Error", "empty input");
+                        $_SESSION["error"] = "Les champs ne sont pas remplis";
                      }
              
                 
@@ -234,8 +251,9 @@
         public function updateRole($id)
         { 
             $userManager = new UserManager;
-            //-----Modifier le role d'un user
-            if (isset($_POST['submitRole'])) 
+            //attention, ici cas non traité, si un administateur se remet lui-même en utilisateur, il a toujours les droit ??
+            //-----Modifier le role d'un user (a besoin de isAdmin pour s'afficher donc protection inutile ici)
+            if (isset($_POST['submitRole']) && Session::isAdmin()) 
             {
                 $role = filter_input(INPUT_POST, "changeRole", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 try {
@@ -244,6 +262,9 @@
                     $_SESSION["error"] = "Ce role n'a pas été modifié";
                 }
 
+            } else {
+                Session::addFlash("Error", "Not Admin");
+                $_SESSION['Error'] = "Vous n'êtes pas admin";
             }
                        
         //---affichage de la view
@@ -253,6 +274,68 @@
                 "users" => $userManager->findAll(["firstLoginDate", "DESC"])
             ]
         ];
+
+        }
+
+        //*REGISTER Add user 
+        public function updatePassword()
+        {
+            
+            $userManager = new UserManager();
+            
+
+                //Si submit Register.php
+                if(isset($_POST['submitNewPassword']))
+                {
+
+                    //je filtre mes données
+                    $password= filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $passwordConfirm= filter_input(INPUT_POST, 'passwordConfirm', FILTER_SANITIZE_FULL_SPECIAL_CHARS);  
+                    
+
+                    //si les champs sont remplis et filtré
+                    if($password && $passwordConfirm)
+                    {
+                        
+                        //si le password et le passwordConfirm correspondent
+                        if($password == $passwordConfirm)
+                        {
+                            
+                            //hashage du mot de passe source : https://www.php.net/manual/en/function.password-hash.php*/
+                            $passwordHash = password_hash($password,PASSWORD_DEFAULT);
+
+                            $id =  $_SESSION['user']->getid();
+
+                            try {  
+                            //ajout en base de données
+                            $userManager->updatePasswordInDB($passwordHash, $id);
+                            } catch (\Exception $e) { 
+                               Session::addFlash("Error","password non updated");
+                               $_SESSION["error"] = "Le password n'a pas été modifié";
+                            }
+                            
+                            //redirection
+                            $this->redirectTo("security","loginForm");
+
+                        } else {
+                            Session::addFlash("Error","password don't match");
+                            $_SESSION["error"] = "Les passwords ne correspondent pas";
+                        }
+
+                    } else  { 
+                        //Le message d'erreur
+                        Session::addFlash("Error","empty input when submit");
+                        $_SESSION["error"] = "Les champs ne sont pas remplis";
+                    }
+             
+                
+                    //affichage dans ma views
+                    return [
+                        "view" => VIEW_DIR . "security/viewProfile.php",
+                        "data" => []
+                        ];
+            
+                }
 
         }
         
