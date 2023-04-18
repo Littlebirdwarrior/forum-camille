@@ -69,9 +69,11 @@ class ForumController extends AbstractController implements ControllerInterface
         //je recupère l'user de mon post
         $idUser = $postManager->findOneById($id)->getUser()->getId();
 
+        $isLock = $postManager->findOneByid($id)->getTopic()->getLock();
+
         if(isset($_SESSION['user']))
         {
-            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()))
+            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()) && ($isLock == 0))
             {
                 //je recupere mon texte
                 $text = $postManager->findOneById($id)->getText();
@@ -142,10 +144,13 @@ class ForumController extends AbstractController implements ControllerInterface
         //je recupère l'user de mon post
         $idUser = $postManager->findOneById($id)->getUser()->getId();
 
+        //je recupere le lock
+        $isLock = $postManager->findOneByid($id)->getTopic()->getLock();
+
         if(isset($_SESSION['user']))
         {
 
-            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()))
+            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()) && ($isLock == 0))
             {
 
                 try {
@@ -184,28 +189,41 @@ class ForumController extends AbstractController implements ControllerInterface
         //je cree le nouveau manager post
         $postManager = new PostManager();
 
+        //je recupere mon lock
+        $isLock = $topic->getLock();
+        
         //seulement si l'user est connecté quand submit
             if (isset($_POST['submit']) && isset($_SESSION['user'])) 
             {
 
-                if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) {
-                    //Je recupère mon id user
-                    $user_id = $_SESSION['user']->getId();
-                    //je vide mon post ce charactères dangereux
-                    $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                    //si le filtre passe
-                    if ($text) {
-                        //j'insére mes données dans le sql
-                        $postManager->add(["text" => $text, "topic_id" => $topic->getId(), "user_id" => $user_id]);
-                        Session::addFlash("Success", "Post added successfully");
-                        //je redirige ma page
-                        $this->redirectTo("forum", "listPostsByTopic", $id);
+                if ($isLock == 0)
+                {
+                    if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) {
+                        //Je recupère mon id user
+                        $user_id = $_SESSION['user']->getId();
+                        //je vide mon post ce charactères dangereux
+                        $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                        //si le filtre passe
+                        if ($text) {
+                            //j'insére mes données dans le sql
+                            $postManager->add(["text" => $text, "topic_id" => $topic->getId(), "user_id" => $user_id]);
+                            Session::addFlash("Success", "Post added successfully");
+                            //je redirige ma page
+                            $this->redirectTo("forum", "listPostsByTopic", $id);
+                        } else {
+                            $this->redirectTo("forum", "listPostsByTopic", $id);
+                        }
                     } else {
-                        $this->redirectTo("forum", "listPostsByTopic", $id);
+                        Session::addFlash("Error", "Blank input");
+                        $_SESSION["error"] = "Vous n'avez pas remplis les inputs";
                     }
+
                 } else {
-                    Session::addFlash("Error", "Blank input");
+                    Session::addFlash("Error", "lock topic");
+                    $_SESSION["error"] = "ce topic est verouillé";
+                    $this->redirectTo("forum", "listPostsByTopic", $id);
                 }
+
             } else {
                 Session::addFlash("Error", "L'utilisateur n'est pas connecté");
                 $_SESSION["error"] = "Vous ne vous êtes pas connecté";
