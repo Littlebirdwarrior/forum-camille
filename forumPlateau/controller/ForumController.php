@@ -68,7 +68,8 @@ class ForumController extends AbstractController implements ControllerInterface
         $text = $postManager->findOneById($id)->getText();
 
         //----modifier le post
-        if (isset($_POST['submit'])) {
+        if (isset($_POST['submit']) && isset($_SESSION['user'])) 
+        {
             //je vide mon post ce charactères dangereux
             $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -83,6 +84,14 @@ class ForumController extends AbstractController implements ControllerInterface
             //Pour la redirection, on charge le topic_id seulement ici (en cas de submit, eviter perte perf)
             $topic_id = $postManager->findOneByid($id)->getTopic()->getId();
             $this->redirectTo("forum", "listPostsByTopic", $topic_id);
+
+        } else {
+            Session::addFlash("Error", "L'utilisateur n'est pas connecté");
+            $_SESSION["error"] = "Vous ne vous êtes pas connecté";
+            return [
+                "view" => VIEW_DIR . "security/login.php",
+                "data" => [ ]
+            ];
         }
 
         //----diriger vers le form de updatePost et l'afficher (avec le bon id)
