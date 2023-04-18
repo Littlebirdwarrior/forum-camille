@@ -287,3 +287,19 @@ form > div textarea {
   height: 35px;
   margin-right: 10px;
 }
+
+.ban-message {
+  min-width: 50%;
+  max-width: 80%;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: rgb(237, 239, 241);
+  border-radius: 30px;
+  border : 1px solid #cdcfe6;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  text-align: center;
+  color: #67676f;
+}
