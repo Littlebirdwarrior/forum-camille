@@ -218,7 +218,7 @@
 
         //*Update role
         public function updateRole($id)
-        {
+        { 
             $userManager = new UserManager;
             //-----Modifier le role d'un user
             if (isset($_POST['submitRole'])) 
@@ -226,6 +226,7 @@
                 $role = filter_input(INPUT_POST, "changeRole", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 try {
                     $userManager->updateRoleInDB($role, intval($id));
+                    echo "test3";
                 } catch (\Exception $e){
                     $_SESSION["error"] = "Ce role n'a pas été modifié";
                 }
@@ -234,12 +235,12 @@
                 //redirection
                 //$this->redirectTo("home", "users");
             }
-                        
+                       
         //---affichage de la view
         return [
-            "view" => VIEW_DIR . "home/users.php",
+            "view" => VIEW_DIR . "security/users.php",
             "data" => [
-                "users" => $userManager->findAll(["userName", "ASC"])
+                "users" => $userManager->findAll(["firstLoginDate", "DESC"])
             ]
         ];
 
