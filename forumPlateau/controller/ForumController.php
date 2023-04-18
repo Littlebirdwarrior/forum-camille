@@ -113,7 +113,7 @@ class ForumController extends AbstractController implements ControllerInterface
         $this->redirectTo("forum", "listPostsByTopic", $topic_id);
     }
 
-
+    //*!
     //CREATE addPost : ajouter un post depuis un Topic préétablis 
     public function addPost($id)
     {
@@ -124,16 +124,13 @@ class ForumController extends AbstractController implements ControllerInterface
         //je cree le nouveau manager post
         $postManager = new PostManager();
 
-        //seulement si l'user est connecté
-        if($_SESSION['user'])
-        {
-        //Je recupère mon id user et mon id cat
-        $user_id = $_SESSION['user']->getId();
-        
+        //seulement si l'user est connecté quand submit
+            if (isset($_POST['submit']) && isset($_SESSION['user'])) 
+            {
 
-            if (isset($_POST['submit'])) {
-                //var_dump ici ne marche pas
                 if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) {
+                    //Je recupère mon id user
+                    $user_id = $_SESSION['user']->getId();
                     //je vide mon post ce charactères dangereux
                     $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                     //si le filtre passe
@@ -149,8 +146,14 @@ class ForumController extends AbstractController implements ControllerInterface
                 } else {
                     Session::addFlash("Error", "Blank input");
                 }
+            } else {
+                Session::addFlash("Error", "L'utilisateur n'est pas connecté");
+                $_SESSION["error"] = "Vous ne vous êtes pas connecté";
+                return [
+                    "view" => VIEW_DIR . "security/login.php",
+                    "data" => [ ]
+                ];
             }
-        }
 
         return [
             "view" => VIEW_DIR . "forum/listPostsbyTopic.php",
@@ -158,6 +161,7 @@ class ForumController extends AbstractController implements ControllerInterface
                 "topic" => $topic
             ]
         ];
+
     }
     //*CRUD TOPIC
 
@@ -175,14 +179,13 @@ class ForumController extends AbstractController implements ControllerInterface
         $postManager = new PostManager();
 
         //seulement si l'user est connecté
-        if ($_SESSION['user'])
-        {
-            //Je recupère mon id user
-            $user_id = $_SESSION['user']->getId();
 
-            if (isset($_POST['submit'])) {
+            if (isset($_POST['submit']) && isset($_SESSION['user'])) 
+            {
 
-                //var_dump ici ne marche pas
+                //Je recupère mon id user
+                $user_id = $_SESSION['user']->getId();
+
                 if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) {
                     //*ici, il faut que le champs topic ne soit pas vide
 
@@ -210,20 +213,21 @@ class ForumController extends AbstractController implements ControllerInterface
                     Session::addFlash("Error", "Blank input");
                 }
 
+            } else {
+                Session::addFlash("Error", "L'utilisateur n'est pas connecté");
+                $_SESSION["error"] = "Vous ne vous êtes pas connecté";
                 return [
-                    "view" => VIEW_DIR . "forum/listTopicsByCat.php",
-                    "data" => [
-                        "category" => $category
-                    ]
+                    "view" => VIEW_DIR . "security/login.php",
+                    "data" => [ ]
                 ];
             }
 
-        } else {
-            Session::addFlash("Error", "L'utilisateur n'est pas connecté");
-            //je redirige ma page
-            $this->redirectTo("security", "login");
-
-        }
+            return [
+                "view" => VIEW_DIR . "forum/listTopicsByCat.php",
+                "data" => [
+                    "category" => $category
+                ]
+            ];
 
     }
 

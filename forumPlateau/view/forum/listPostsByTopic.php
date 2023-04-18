@@ -41,13 +41,12 @@ if (isset($posts)) {
 
 <!-- ... -->
 
-<?php 
-if (isset($_SESSION["user"])){ ?>
+<!-- <?php 
+//if (isset($_SESSION["user"])){ ?> -->
 
 <form action="index.php?ctrl=forum&action=addPost&id=<?= $topicId ?>" method="post"><!----ici, id existe pas encore--->
     <h2>Ajouter un post</h2>
     <div>
-        //*! ici utiliser l'utilisateur connecté pour le future post
         <label for="user">Utilisateur : <?= $topic->getUser()->getUserName() ?> </label><br />
         <label for="topic">Sujet : <?= $topic->getTitle() ?></label>
     </div>
@@ -60,7 +59,7 @@ if (isset($_SESSION["user"])){ ?>
     </div>
 </form>
 
-<?php 
-}
-?>
+<!-- <?php 
+//}
+?> -->
 <!-- ... -->

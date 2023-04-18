@@ -44,9 +44,6 @@ main {
 
 footer{
   width: 100%;
-  position: absolute;
-  left: 0;
-  bottom: 0;
   margin-top: 2rem;
   border-top: 1px solid #061a52;
 }

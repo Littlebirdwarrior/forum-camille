@@ -95,7 +95,7 @@ $categoryId = $_GET['id'];
 </div>
 
 <?php 
-if (isset($_SESSION["user"])){ ?>
+//if (isset($_SESSION["user"])){ ?>
 
 <form action="index.php?ctrl=forum&action=addTopic&id=<?= $categoryId ?>" method="post"><!----ici, id existe pas encore---->
     <h2>Ajouter un sujet</h2>
@@ -114,6 +114,6 @@ if (isset($_SESSION["user"])){ ?>
 </form>
 
 <?php 
-}
+//}
 ?>
 
