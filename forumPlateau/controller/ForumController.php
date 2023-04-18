@@ -71,7 +71,7 @@ class ForumController extends AbstractController implements ControllerInterface
 
         if(isset($_SESSION['user']))
         {
-            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()) && !(Session::isBan()))
+            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()))
             {
                 //je recupere mon texte
                 $text = $postManager->findOneById($id)->getText();

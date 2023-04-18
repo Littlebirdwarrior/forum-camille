@@ -154,18 +154,32 @@
                                     {
                                         $user = $userManager->fetchUserByEmail($email);
                                         
-                                        try { 
-                                        //connexion
-                                        Session::setUser($user);
-                                        Session::addFlash("Success", "Login successful");
+                                        if($user->getRole() !== "ban")
+                                        {
+                                            try { 
+                                                //connexion
+                                                Session::setUser($user);
+                                                Session::addFlash("Success", "Login successful");
+        
+                                                } catch (\Exception $e) { 
+                                                   echo $e->getMessage();
+                                                   Session::addFlash("Error", $e->getMessage());
+                                                }
+                                                
+                                                //redirection
+                                                $this->redirectTo("security","viewProfile");
 
-                                        } catch (\Exception $e) { 
-                                           echo $e->getMessage();
-                                           Session::addFlash("Error", $e->getMessage());
+                                        } else {
+    
+                                            Session::addFlash("Error", "Ban user");
+                                            $_SESSION["error"] = "Vous avez été banis";
+
+                                            return [
+                                                "view" => VIEW_DIR . "security/ban.php",
+                                                "data" => []
+                                            ];
                                         }
-                                        
-                                        //redirection
-                                        $this->redirectTo("security","viewProfile");
+                                          
 
                                     } else {
                                         echo "Mot de passe incorrect";
