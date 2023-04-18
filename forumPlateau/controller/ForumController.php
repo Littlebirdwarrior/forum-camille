@@ -158,7 +158,7 @@ class ForumController extends AbstractController implements ControllerInterface
 
             } else {
                 Session::addFlash("Error", "Non authorised user");
-                $_SESSION["error"] = "Vous n'avez pas les authorisations pour changer ce post";
+                $_SESSION["error"] = "Vous n'avez pas les authorisations pour supprimer ce post";
             }
 
             //Redirection
@@ -364,27 +364,47 @@ class ForumController extends AbstractController implements ControllerInterface
         $postManager = new PostManager();
         $posts = $postManager->fetchPostsByTopic($id); //nb : ici, l'id est celui du topic
 
-        //boucle pour supprimer tous les posts de ce topic
-        try {
-            foreach ($posts as $post) {
-                $post_id = $post->getId();
-                $postManager->deletePostInDB(intval($post_id));
+        //je recupère l'user de mon post
+        $idUser = $topicManager->findOneById($id)->getUser()->getId();
+
+        if(isset($_SESSION['user']))
+        {
+            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()))
+            {
+                //boucle pour supprimer tous les posts de ce topic
+                try {
+                    foreach ($posts as $post) {
+                        $post_id = $post->getId();
+                        $postManager->deletePostInDB(intval($post_id));
+                    }
+                } catch (\Exception $e) {
+                    $_SESSION["error"] = "Les posts du sujet ne sont pas supprimé";
+                }
+
+                //supprimer le topic
+                try {
+                    //supprimer mon topic
+                    $topicManager->deleteTopicInDB(intval($id));
+                    Session::addFlash("Success", "Topic deleted");
+                } catch (\Exception $e) {
+                    $_SESSION["error"] = "Ce sujet n'a pas été supprimé";
+                }
+
+            } else {
+                Session::addFlash("Error", "Non authorised user");
+                $_SESSION["error"] = "Vous n'avez pas les authorisations pour supprimer ce topic";
             }
-        } catch (\Exception $e) {
-            $_SESSION["error"] = "Les posts du sujet ne sont pas supprimé";
-        }
 
-        //supprimer le topic
-        try {
-            //supprimer mon topic
-            $topicManager->deleteTopicInDB(intval($id));
-            Session::addFlash("Success", "Topic deleted");
-        } catch (\Exception $e) {
-            $_SESSION["error"] = "Ce sujet n'a pas été supprimé";
-        }
-
-        //Redirection
-        $this->redirectTo("forum", "listTopicsByCat", $category_id);
+            //Redirection
+            $this->redirectTo("forum", "listTopicsByCat", $category_id);
+        } else {
+            Session::addFlash("Error", "L'utilisateur n'est pas connecté");
+                $_SESSION["error"] = "Vous ne vous êtes pas connecté";
+                return [
+                    "view" => VIEW_DIR . "security/login.php",
+                    "data" => [ ]
+                ];
+        }      
     }
     //*Lock
     //lock et unlock les topic
