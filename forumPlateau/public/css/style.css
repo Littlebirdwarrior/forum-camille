@@ -34,12 +34,12 @@ header{
 main, 
 header>nav, 
 footer>p {
-  max-width: 1060px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
 main {
-  padding : 0 1rem;
+  padding: 0 3rem;
 }
 
 footer{
@@ -155,8 +155,8 @@ td .info-post {
 /*posts*/
 
 .box-post{
-  max-width: 80%;
-  margin: 1rem auto 2rem;
+  max-width: 100%;
+  margin: 1rem 0 2rem;
   padding: 1rem 2rem 0.2rem;
   background-color: #f4f4f8;
   border: 1px solid #e9eaf8;
@@ -241,7 +241,7 @@ input[type="submit"] i {
 
 form {
   max-width: 560px;
-  margin: 2rem 3rem;
+  margin: 2rem 0;
   padding: 1rem 2rem;
   border: 1px solid #c9c9cf
 
