@@ -226,7 +226,6 @@
                 $role = filter_input(INPUT_POST, "changeRole", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 try {
                     $userManager->updateRoleInDB($role, intval($id));
-                    echo "test3";
                 } catch (\Exception $e){
                     $_SESSION["error"] = "Ce role n'a pas été modifié";
                 }
