@@ -125,28 +125,30 @@ class ForumController extends AbstractController implements ControllerInterface
         $postManager = new PostManager();
 
         //seulement si l'user est connecté
-        // if($_SESSION['user']){
+        if($_SESSION['user'])
+        {
         //Je recupère mon id user et mon id cat
-        // $user_id = $_SESSION['user']->getId();
-        $user_id = 43; //*!a modifier
+        $user_id = $_SESSION['user']->getId();
+        
 
-        if (isset($_POST['submit'])) {
-            //var_dump ici ne marche pas
-            if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) {
-                //je vide mon post ce charactères dangereux
-                $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                //si le filtre passe
-                if ($text) {
-                    //j'insére mes données dans le sql
-                    $postManager->add(["text" => $text, "topic_id" => $topic->getId(), "user_id" => $user_id]);
-                    Session::addFlash("Success", "Post added successfully");
-                    //je redirige ma page
-                    $this->redirectTo("forum", "listPostsByTopic", $id);
+            if (isset($_POST['submit'])) {
+                //var_dump ici ne marche pas
+                if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) {
+                    //je vide mon post ce charactères dangereux
+                    $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    //si le filtre passe
+                    if ($text) {
+                        //j'insére mes données dans le sql
+                        $postManager->add(["text" => $text, "topic_id" => $topic->getId(), "user_id" => $user_id]);
+                        Session::addFlash("Success", "Post added successfully");
+                        //je redirige ma page
+                        $this->redirectTo("forum", "listPostsByTopic", $id);
+                    } else {
+                        $this->redirectTo("forum", "listPostsByTopic", $id);
+                    }
                 } else {
-                    $this->redirectTo("forum", "listPostsByTopic", $id);
+                    Session::addFlash("Error", "Blank input");
                 }
-            } else {
-                Session::addFlash("Error", "Blank input");
             }
         }
 
@@ -172,44 +174,58 @@ class ForumController extends AbstractController implements ControllerInterface
         $postManager = new PostManager();
 
         //seulement si l'user est connecté
-        // if($_SESSION['user']){
-        //Je recupère mon id user et mon id cat
-        // $user_id = $_SESSION['user']->getId();
-        $user_id = 43; //*!a modifier lors de la creation des connexions
+        if ($_SESSION['user'] !== null)
+        {
+            //Je recupère mon id user
+            $user_id = $_SESSION['user']->getId();
 
-        if (isset($_POST['submit'])) {
-            //var_dump ici ne marche pas
-            if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) {
-                //*ici, il faut que le champs topic ne soit pas vide
-                //je vide mon post ce charactères dangereux
-                $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $title = filter_input(INPUT_POST, "titleTopic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $category_id = $category->getId();
-                //si le filtre passe
-                if ($text) {
-                    //j'insère mes données dans la table topic
-                    $last_id = $topicManager->add(["title" => $title, "user_id" => $user_id, "category_id" => $category_id]);
-                    //j'insére mes données dans la table post
-                    $postManager->add(["text" => $text, "topic_id" => $last_id, "user_id" => $user_id]); //* ici l'id devra être le dernier créer
-                    Session::addFlash("Success", "Post added successfully");
-                    //je redirige ma page
-                    $this->redirectTo("forum", "listTopicsByCat", $id);
+            if (isset($_POST['submit'])) {
+
+                //var_dump ici ne marche pas
+                if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) {
+                    //*ici, il faut que le champs topic ne soit pas vide
+
+                    //je vide mon post ce charactères dangereux
+                    $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $title = filter_input(INPUT_POST, "titleTopic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                    //je recupere mon id category
+                    $category_id = $category->getId();
+
+                    //si le filtre passe
+                    if ($text) {
+                        //j'insère mes données dans la table topic
+                        $last_id = $topicManager->add(["title" => $title, "user_id" => $user_id, "category_id" => $category_id]);
+                        //j'insére mes données dans la table post
+                        $postManager->add(["text" => $text, "topic_id" => $last_id, "user_id" => $user_id]); //* ici l'id devra être le dernier créer
+                        Session::addFlash("Success", "Post added successfully");
+                        //je redirige ma page
+                        $this->redirectTo("forum", "listTopicsByCat", $id);
+                    } else {
+                        $this->redirectTo("forum", "listTopicsByCat", $id);
+                        echo 'erreur';
+                    }
                 } else {
-                    $this->redirectTo("forum", "listTopicsByCat", $id);
-                    echo 'erreur';
+                    Session::addFlash("Error", "Blank input");
                 }
-            } else {
-                Session::addFlash("Error", "Blank input");
+
+                return [
+                    "view" => VIEW_DIR . "forum/listTopicsByCat.php",
+                    "data" => [
+                        "category" => $category
+                    ]
+                ];
             }
+
+        } else {
+            Session::addFlash("Error", "L'utilisateur n'est pas connecté");
+            //je redirige ma page
+            $this->redirectTo("security", "login");
+
         }
 
-        return [
-            "view" => VIEW_DIR . "forum/listTopicsByCat.php",
-            "data" => [
-                "category" => $category
-            ]
-        ];
     }
+
 
     //UPDATE updateTopic : modifier le titre d'un topic
     public function updateTopic($id)
