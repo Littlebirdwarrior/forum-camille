@@ -299,16 +299,18 @@ class ForumController extends AbstractController implements ControllerInterface
         $topicManager = new TopicManager();
         $title = $topicManager->findOneById($id)->getTitle();
 
+        //--je recupère le lock de mon topic
+        $isLock = $topicManager->findOneById($id)->getLock();
+
         //je recupère l'user de mon post
         $idUser = $topicManager->findOneById($id)->getUser()->getId();
 
         if(isset($_SESSION['user']))
         {
 
-            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()))
-
+            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()) && ($isLock == 0))
             {
-                //---modifier le topic
+                //---modifier le topic si il n'est pas lock
                 if (isset($_POST['submit'])) 
                 {
                     $title = filter_input(INPUT_POST, "topicTitle", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
