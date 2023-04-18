@@ -38,10 +38,10 @@ $users = $result["data"]["users"];
                 <td><?=$user->getEmail()?></td>
                 <td>
                     <form class="updateRoleForm" action="index.php?ctrl=security&action=updateRole&id=<?=$userId?>" method="post">
-                        <select name="changeRole">
-                            <option value="<?=$statut?>"> Utilisateur </option>
-                            <option value="<?=$statut?>"> Administrateur</option> 
-                            <option value="<?=$statut?>"> Bloquer </option> 
+                        <select  name="changeRole">
+                            <option value="user"> Utilisateur </option>
+                            <option value="admin"> Administrateur</option> 
+                            <option value="ban"> Bloquer </option> 
                         </select>
                         <input class="button variant" type="submit" name="submitRole" value="Mettre à jour"/>
                     </form>

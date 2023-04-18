@@ -77,7 +77,7 @@
             $sql = "UPDATE ".$this->tableName."
             SET role = :role 
             WHERE id_".$this->tableName." = :id";
-            
+
             DAO::update($sql, ['role' => $role, 'id' => $id]);
         }
 
