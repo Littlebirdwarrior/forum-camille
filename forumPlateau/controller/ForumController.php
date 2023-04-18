@@ -366,12 +366,15 @@ class ForumController extends AbstractController implements ControllerInterface
         $postManager = new PostManager();
         $posts = $postManager->fetchPostsByTopic($id); //nb : ici, l'id est celui du topic
 
+        //--je recupère le lock de mon topic
+        $isLock = $topicManager->findOneById($id)->getLock();
+
         //je recupère l'user de mon post
         $idUser = $topicManager->findOneById($id)->getUser()->getId();
 
         if(isset($_SESSION['user']))
         {
-            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()))
+            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()) && ($isLock == 0))
             {
                 //boucle pour supprimer tous les posts de ce topic
                 try {
