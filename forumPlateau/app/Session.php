@@ -36,12 +36,13 @@
         public static function getUser(){
             return (isset($_SESSION['user'])) ? $_SESSION['user'] : false;
         }
-
+        //on verifie ici que la valeur du role de l'user est egale à admin 
         public static function isAdmin(){
-            if(self::getUser() && self::getUser()->hasRole("ROLE_ADMIN")){
-                return true;
-            }
-            return false;
+            return self::getUser() && self::getUser()->getRole() == "admin";
+        }
+        //autre ecriture en utilisant la fonction hasRole(): 
+        public static function isBan(){
+            return self::getUser() && self::getUser()->hasRole("ban");
         }
 
     }

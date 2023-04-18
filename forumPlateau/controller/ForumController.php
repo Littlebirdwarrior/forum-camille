@@ -178,17 +178,22 @@ class ForumController extends AbstractController implements ControllerInterface
         //je cree le nouveau manager post
         $postManager = new PostManager();
 
+
         //seulement si l'user est connecté
 
             if (isset($_POST['submit']) && isset($_SESSION['user'])) 
             {
 
                 //Je recupère mon id user
-                $user_id = $_SESSION['user']->getId();
+                $user_id = Session::getUser()->getId();
 
+                var_dump($_SESSION['user']->hasRole()); die;
+
+                //if(Session::isAdmin() )
+
+                //*ici, il faut que le champs topic ne soit pas vide
                 if (isset($_POST["textPost"]) && (!empty($_POST["textPost"]))) {
-                    //*ici, il faut que le champs topic ne soit pas vide
-
+                    
                     //je vide mon post ce charactères dangereux
                     $text = filter_input(INPUT_POST, "textPost", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                     $title = filter_input(INPUT_POST, "titleTopic", FILTER_SANITIZE_FULL_SPECIAL_CHARS);

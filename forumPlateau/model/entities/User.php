@@ -28,7 +28,7 @@ final class User extends Entity {
          $this -> id = $id;
     }
 
-    //* id
+    //* role
 
     public function getRole() {
         return $this ->role;
@@ -78,10 +78,13 @@ final class User extends Entity {
         $this -> firstLoginDate = $firstLoginDate;
     }
 
-    //*Role (set existe deja dans le manager)
-
-    public function hasRole() {
-        return $this -> role;
+    //*ici, verifie que le role appellé et le role demandé (voir dans App/Session)
+    //le == sert ici d'opérateur de comparaison
+    public function hasRole($role) {
+        if($role == $this -> role){
+            return true;
+        }
+        return false;
     }
 
 
