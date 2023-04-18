@@ -276,30 +276,59 @@ class ForumController extends AbstractController implements ControllerInterface
         $topicManager = new TopicManager();
         $title = $topicManager->findOneById($id)->getTitle();
 
-        //---modifier le topic
-        if (isset($_POST['submit'])) 
+        //je recupère l'user de mon post
+        $idUser = $topicManager->findOneById($id)->getUser()->getId();
+
+        if(isset($_SESSION['user']))
         {
-            $title = filter_input(INPUT_POST, "topicTitle", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            try {
-                $topicManager->updateTopicInDB(intval($id), $title);
-                Session::addFlash("Success", "Topic updated");
-            } catch (\Exception $e) {
-                $_SESSION["error"] = "Ce sujet n'a pas été modifié";
+            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()))
+
+            {
+                //---modifier le topic
+                if (isset($_POST['submit'])) 
+                {
+                    $title = filter_input(INPUT_POST, "topicTitle", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                    try {
+                        $topicManager->updateTopicInDB(intval($id), $title);
+                        Session::addFlash("Success", "Topic updated");
+                    } catch (\Exception $e) {
+                        $_SESSION["error"] = "Ce sujet n'a pas été modifié";
+                    }
+
+                    //redirection vers listTopicsByCat
+                    $category_id = $topicManager->findOneById($id)->getCategory()->getId();
+                    $this->redirectTo("forum", "listTopicsByCat", $category_id);
+                }
+
+                //---affichage du form
+                return [
+                    "view" => VIEW_DIR . "forum/updateTopic.php",
+                    "data" => [
+                        "title" => $title,
+                    ]
+                ];
+            } else {
+                //permet de réafficher la page
+
+                Session::addFlash("Error", "Non authorised user");
+                $_SESSION["error"] = "Vous n'avez pas les authorisations pour changer ce post";
+
+                //Redirection
+                 $category_id = $topicManager->findOneById($id)->getCategory()->getId();
+                $this->redirectTo("forum", "listTopicsByCat", $category_id);
+
             }
-
-            //redirection vers listTopicsByCat
-            $category_id = $topicManager->findOneById($id)->getCategory()->getId();
-            $this->redirectTo("forum", "listTopicsByCat", $category_id);
-        }
-
-        //---affichage du form
-        return [
-            "view" => VIEW_DIR . "forum/updateTopic.php",
-            "data" => [
-                "title" => $title,
-            ]
-        ];
+        } else {
+            Session::addFlash("Error", "L'utilisateur n'est pas connecté");
+                $_SESSION["error"] = "Vous ne vous êtes pas connecté";
+                return [
+                    "view" => VIEW_DIR . "security/login.php",
+                    "data" => [ ]
+                ];
+        }    
+            
     }
 
     //DELETE supprimer mon topic
