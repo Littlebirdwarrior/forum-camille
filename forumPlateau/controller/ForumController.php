@@ -135,19 +135,42 @@ class ForumController extends AbstractController implements ControllerInterface
     public function deletePost($id)
     {
         $postManager = new postManager();
+
         //recuperer le topic id (à mettre avant suppression du post)
         $topic_id = $postManager->findOneByid($id)->getTopic()->getId();
 
-        try {
-            //supprimer mon post 
-            $postManager->deletePostInDB(intval($id));
-            Session::addFlash("message", "Post deleted");
-        } catch (\Exception $e) {
-            $_SESSION["error"] = "Ce message n'a pas été supprimé";
-        }
+        //je recupère l'user de mon post
+        $idUser = $postManager->findOneById($id)->getUser()->getId();
 
-        //Redirection
-        $this->redirectTo("forum", "listPostsByTopic", $topic_id);
+        if(isset($_SESSION['user']))
+        {
+
+            if( Session::isAdmin() || ($idUser == Session::getUser()->getId()))
+            {
+
+                try {
+                    //supprimer mon post 
+                    $postManager->deletePostInDB(intval($id));
+                    Session::addFlash("message", "Post deleted");
+                } catch (\Exception $e) {
+                    $_SESSION["error"] = "Ce message n'a pas été supprimé";
+                }
+
+            } else {
+                Session::addFlash("Error", "Non authorised user");
+                $_SESSION["error"] = "Vous n'avez pas les authorisations pour changer ce post";
+            }
+
+            //Redirection
+            $this->redirectTo("forum", "listPostsByTopic", $topic_id);
+        } else {
+            Session::addFlash("Error", "L'utilisateur n'est pas connecté");
+                $_SESSION["error"] = "Vous ne vous êtes pas connecté";
+                return [
+                    "view" => VIEW_DIR . "security/login.php",
+                    "data" => [ ]
+                ];
+        }    
     }
 
 
@@ -313,7 +336,7 @@ class ForumController extends AbstractController implements ControllerInterface
                 //permet de réafficher la page
 
                 Session::addFlash("Error", "Non authorised user");
-                $_SESSION["error"] = "Vous n'avez pas les authorisations pour changer ce post";
+                $_SESSION["error"] = "Vous n'avez pas les authorisations pour changer ce titre";
 
                 //Redirection
                  $category_id = $topicManager->findOneById($id)->getCategory()->getId();
