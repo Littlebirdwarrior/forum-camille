@@ -129,7 +129,7 @@
         {  
             $userManager = new UserManager();
 
-                //Si submit Register.php
+                //Si submit Login.php
                 if(isset($_POST['submitLogin']))
                 {
                     

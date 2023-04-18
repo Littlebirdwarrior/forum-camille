@@ -106,13 +106,16 @@ class ForumController extends AbstractController implements ControllerInterface
                 ];
 
             } else {
+                //permet de réafficher la page
+
                 Session::addFlash("Error", "Non authorised user");
                 $_SESSION["error"] = "Vous n'avez pas les authorisations pour changer ce post";
 
-                return [
-                    "view" => VIEW_DIR . "security/ban.php",
-                    "data" => []
-                ];
+                //Pour la redirection, on charge le topic_id seulement ici (en cas de submit, eviter perte perf)
+                $topic_id = $postManager->findOneByid($id)->getTopic()->getId();
+                $this->redirectTo("forum", "listPostsByTopic", $topic_id);
+
+
             }
 
         } else {
