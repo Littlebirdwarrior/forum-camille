@@ -39,7 +39,7 @@ $users = $result["data"]["users"];
                 <td>
                     <form class="updateRoleForm" action="index.php?ctrl=security&action=updateRole&id=<?=$userId?>" method="post">
                         <select  name="changeRole">
-                            <option value="user"> Utilisateur </option>
+                            <option value="user"> Utilisateur</option>
                             <option value="admin"> Administrateur</option> 
                             <option value="ban"> Bloquer </option> 
                         </select>

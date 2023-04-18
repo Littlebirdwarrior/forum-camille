@@ -230,9 +230,6 @@
                     $_SESSION["error"] = "Ce role n'a pas été modifié";
                 }
 
-
-                //redirection
-                //$this->redirectTo("home", "users");
             }
                        
         //---affichage de la view
